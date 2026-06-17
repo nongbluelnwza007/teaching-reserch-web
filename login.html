@@ -21,6 +21,42 @@
         .modal-content { background: white; padding: 40px; border-radius: 30px; text-align: center; width: 280px; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
         .modal-content.show { transform: scale(1); }
         .modal-icon { font-size: 70px; margin-bottom: 15px; display: block; }
+
+        /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
+@media only screen and (max-width: 768px) {
+    /* 1. ขยายกล่องหลักให้เต็มจอ */
+    .contact-container, .dashboard-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
+    .instructor-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    .instructor-main {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
+    .contact-title { font-size: 22px; }
+    .stat-value { font-size: 20px; }
+}
+
+/* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
+@media only screen and (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* เรียงแถวเดียว */
+    }
+}
     </style>
 </head>
 <body>
