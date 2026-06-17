@@ -2,7 +2,6 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KTCM Computer Maintenance</title>
     <link rel="stylesheet" href="style.css">
     <script>
@@ -92,47 +91,6 @@
         .logout-btn:hover, .profile-link-nav:hover {
             background: #f1f5f9;
             border-color: #94a3b8;
-        }
-
-        /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
-        @media only screen and (max-width: 768px) {
-            /* ป้องกัน UI หายในมือถือ */
-            .app-container { flex-direction: column !important; }
-            #sidebar { width: 100% !important; height: auto !important; position: static !important; }
-            .menu-scroll { max-height: 400px !important; overflow-y: auto !important; }
-            
-            /* 1. ขยายกล่องหลักให้เต็มจอ */
-            .contact-container, .dashboard-container {
-                width: 95%;
-                padding: 20px;
-            }
-
-            /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
-            .instructor-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            .instructor-main {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
-            .contact-title { font-size: 22px; }
-            .stat-value { font-size: 20px; }
-        }
-
-        /* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
-        @media only screen and (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr; /* เรียงแถวเดียว */
-            }
         }
     </style>
 </head>
