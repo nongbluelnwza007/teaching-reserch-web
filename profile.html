@@ -48,41 +48,12 @@
         .modal-content.show { transform: scale(1); }
         .icon { font-size: 65px; margin-bottom: 10px; display: block; }
 
-        /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
-@media only screen and (max-width: 768px) {
-    /* 1. ขยายกล่องหลักให้เต็มจอ */
-    .contact-container, .dashboard-container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
-    .instructor-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    .instructor-main {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
-    .contact-title { font-size: 22px; }
-    .stat-value { font-size: 20px; }
-}
-
-/* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
-@media only screen and (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr; /* เรียงแถวเดียว */
-    }
-}
+        /* 📍 แก้ไขส่วน Responsive ให้ตรงกับ Class ของหน้า profile.html โดยเฉพาะ */
+        @media only screen and (max-width: 768px) {
+            .card { flex-direction: column !important; padding: 15px !important; }
+            .left-side, .right-side { width: 100% !important; }
+            .modal-content { width: 90% !important; padding: 20px !important; }
+        }
     </style>
 </head>
 <body>
@@ -163,14 +134,10 @@
         setTimeout(() => modal.classList.remove("active"), 300);
     };
 
-    // 📍 🛠️ ปรับปรุงความใหญ่ฟอนต์ในโมดอลคะแนนดิบให้อ่านง่าย ชัดเจน (ขยายเป็น 18px และหัวข้อ 24px)
     window.showUnitDetail = (unitNum) => {
         const fullScore = 10;
         const unit = userScores[`unit${unitNum}`] || {};
-        
-        // ฟังก์ชันจัดการคะแนนดิบให้ออกมาเป็นโครงสร้างชัดเจน
         const displayScore = (val) => (val !== undefined && val !== null && val > 0) ? `${(val * fullScore / 100).toFixed(1)} / ${fullScore} คะแนน` : "0.0 / 10 คะแนน";
-        
         const rawPre = (unit.pre !== undefined && unit.pre !== null) ? Number((unit.pre * fullScore / 100).toFixed(1)) : 0;
         const rawEx = (unit.exercise !== undefined && unit.exercise !== null) ? Number((unit.exercise * fullScore / 100).toFixed(1)) : 0;
         const rawPost = (unit.post !== undefined && unit.post !== null) ? Number((unit.post * fullScore / 100).toFixed(1)) : 0;
@@ -226,27 +193,20 @@
         }
     };
 
-    // 📍 ปรับขนาดฟอนต์หัวหน่วยเรียนให้ชัดเจนเด่นชัดขึ้นเป็น 18px ชัดแจ๋วสะใจ
     function renderProgress() {
         const container = document.getElementById('progressList');
         container.innerHTML = ''; 
-        
         for(let i = 1; i <= 10; i++) {
             const unit = userScores[`unit${i}`] || {};
-            
             const prePercent = (unit.pre !== undefined && unit.pre !== null && unit.pre > 0) ? 100 : 0;
             const exPercent = (unit.exercise !== undefined && unit.exercise !== null && unit.exercise > 0) ? 100 : 0;
             const postPercent = (unit.post !== undefined && unit.post !== null && unit.post > 0) ? 100 : 0;
-
             container.innerHTML += `<div class="progress-item" onclick="showUnitDetail(${i})">
                 <div style="font-weight:700; margin-bottom:15px; font-size:18px; color:#0f172a; border-left:4px solid #3b82f6; padding-left:8px;">หน่วยที่ ${i} (คลิกเพื่อดูคะแนนดิบ)</div>
-                
                 <div class="row"><span>แบบทดสอบก่อนเรียน</span><span>${prePercent}%</span></div>
                 <div class="bar-container"><div class="bar pre-bar" style="width: ${prePercent}%"></div></div>
-                
                 <div class="row"><span>แบบฝึกหัด</span><span>${exPercent}%</span></div>
                 <div class="bar-container"><div class="bar ex-bar" style="width: ${exPercent}%"></div></div>
-                
                 <div class="row"><span>แบบทดสอบหลังเรียน</span><span>${postPercent}%</span></div>
                 <div class="bar-container"><div class="bar quiz-bar" style="width: ${postPercent}%"></div></div>
             </div>`;
