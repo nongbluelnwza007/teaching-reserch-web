@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap');
+* { box-sizing: border-box; }
+body, html { margin: 0; padding: 0; height: 100%; font-family: 'Sarabun', sans-serif; background: #f1f5f9; overflow: hidden; }
+button, input, select, textarea { font-family: 'Sarabun', sans-serif; }
+
+/* container หลัก */
+.app-container { display: flex; width: 100vw; height: 100vh; }
+
+/* Sidebar */
+#sidebar { width: 320px; background: #ffffff; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; height: 100%; }
+
+.sidebar-header { padding: 30px 20px; background: #0f172a; color: white; }
+.course-title { font-size: 18px; margin: 0 0 15px 0; }
+
+/* เมนูที่ย้ายมาไว้ข้างใน */
+.nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.nav-links a { text-decoration: none; color: #94a3b8; background: #1e293b; font-size: 0.8rem; padding: 5px 10px; border-radius: 6px; transition: 0.3s; border: 1px solid #334155; }
+.nav-links a:hover { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+.menu-scroll { flex-grow: 1; overflow-y: auto; }
+.main-link { padding: 20px 30px; cursor: pointer; font-weight: 700; color: #334155; border-bottom: 1px solid #f8fafc; transition: 0.3s; }
+.main-link:hover { background: #f8fafc; color: #0ea5e9; }
+.sub-menu { list-style: none; padding: 0; display: none; background: #fdfdfd; }
+.menu-group.active .sub-menu { display: block; }
+.sub-item { padding: 15px 30px 15px 50px; cursor: pointer; color: #64748b; font-size: 0.95em; transition: 0.2s; }
+.sub-item:hover { color: #0ea5e9; background: #f0f9ff; }
+
+.user-profile { padding: 20px; border-top: 1px solid #e2e8f0; background: #0f172a; display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+.user-avatar { width: 60px; height: 60px; border-radius: 50%; background-size: cover; background-position: center; }
+.user-name { font-weight: 700; font-size: 14px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.logout-btn { background: transparent; color: #94a3b8; border: 1px solid #334155; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+.logout-btn:hover { border-color: #ffffff; color: #ffffff; }
+
+/* Main Content */
+#main-content { flex-grow: 1; position: relative; background: #f1f5f9; display: flex; flex-direction: column; }
+.content-inner { position: absolute; top: 30px; left: 30px; right: 30px; bottom: 120px; background: white; padding: 50px; border-radius: 25px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow-y: auto; }
+.footer-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; background: #ffffff; border-top: 1px solid #e2e8f0; }
+.nav-btn { padding: 14px 35px; cursor: pointer; font-weight: 700; border: none; border-radius: 12px; background: #0f172a; color: white; transition: 0.3s; }
+.nav-btn:hover { background: #0ea5e9; transform: translateY(-2px); }
+
+.floating-nav {
+    position: fixed; /* ลอยค้างไว้ตรงที่กำหนด */
+    top: 20px;       /* ห่างจากขอบบน 20px */
+    right: 20px;     /* ห่างจากขอบขวา 20px */
+    display: flex;
+    gap: 10px;       /* ระยะห่างระหว่างปุ่ม */
+    z-index: 9999;   /* ให้ปุ่มลอยอยู่เหนือทุกอย่างบนจอ */
+}
+
+.float-btn {
+    text-decoration: none;
+    background: #0f172a; /* สีน้ำเงินเข้ม */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เพิ่มเงาให้ดูเหมือนลอยจริงๆ */
+    transition: 0.3s;
+}
+
+.float-btn:hover {
+    background: #334155;
+    transform: translateY(-2px); /* เอฟเฟกต์ยกตัวเวลาเอาเมาส์ไปชี้ */
+}
+
+.sub-menu { 
+    display: none; /* เริ่มต้นปิดไว้เสมอ */
+    list-style: none; 
+    padding: 0; 
+    background: #fdfdfd; 
+    transition: none; /* ปิด transition ไปก่อนเพื่อความชัวร์ */
+}
+
+/* 2. เมื่อกด toggleMenu หรือระบบสั่งกาง (มี class .active) ให้แสดง */
+.menu-group.active .sub-menu { 
+    display: block !important; 
+}
+
+/* 3. บังคับให้เมนูที่มียูสเซอร์เลือกอยู่ ต้องแสดงผล */
+.menu-group:has(.active-menu) .sub-menu { 
+    display: block !important; 
+}
+
+/* 4. สไตล์ของเมนูย่อยที่ถูกเลือก */
+.sub-item.active-menu {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    border-left: 4px solid #3b82f6 !important;
+    font-weight: bold !important;
+}

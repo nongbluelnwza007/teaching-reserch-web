@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขข้อมูลส่วนตัว</title>
+    <link rel="stylesheet" href="profile.css">
+    <script>
+        // 1. ตรวจสอบสถานะล็อกอินปัจจุบันในระบบ
+        if (!sessionStorage.getItem('isLoggedIn') || !localStorage.getItem('userName')) {
+            sessionStorage.clear();
+            localStorage.removeItem('userName');
+            window.location.replace('login.html'); // เตะกลับหน้าแรกและล้างประวัติการเข้าชมทันที
+        }
+
+        // 2. ป้องกันการกดปุ่ม ย้อนกลับ-ถัดไป (Back-Forward Cache) ของเบราว์เซอร์เพื่อแอบข้ามหน้า
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                window.location.reload(); // บังคับรีเฟรชหน้าจอเพื่อตรวจสอบสิทธิ์ใหม่
+            }
+        });
+    </script>
+    <style>
+        /* 📍 อัปเกรดขนาดหลอดให้หนาขึ้นเล็กน้อยเพื่อรองรับฟอนต์ที่ใหญ่ขึ้น */
+        .bar-container { background: #e2e8f0; height: 10px; border-radius: 5px; margin-bottom: 12px; overflow: hidden; }
+        .bar { height: 100%; border-radius: 5px; transition: width 0.5s; }
+        .pre-bar { background: #f59e0b; } 
+        .ex-bar { background: #3b82f6; }   
+        .quiz-bar { background: #10b981; } 
+        .progress-item { margin-bottom: 20px; background: #fff; padding: 18px; border-radius: 15px; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.3s; }
+        .progress-item:hover { border-color: #3b82f6; transform: translateY(-2px); }
+        
+        /* 📍 ขยายขนาดฟอนต์ของข้อความบนหลอดความคืบหน้าจาก 13px เป็น 16px อ่านง่ายเต็มตา */
+        .row { display: flex; justify-content: space-between; font-size: 16px; margin-bottom: 6px; color: #475569; font-weight: 500; }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%; padding: 12px; margin-bottom: 10px;
+            border: 1px solid #e2e8f0; border-radius: 8px;
+            box-sizing: border-box; display: block;
+        }
+        .btn-back { background: #64748b; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; margin-top: 15px; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 9999; pointer-events: none; }
+        .modal-overlay.active { display: flex; pointer-events: auto; }
+        
+        /* 📍 ขยายขนาดความกว้างกล่องโมดอลเป็น 420px เพื่อรองรับฟอนต์ขนาดใหญ่โดยไม่หักบรรทัดมั่ว */
+        .modal-content { background: white; padding: 35px; border-radius: 30px; text-align: center; width: 420px; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .modal-content.show { transform: scale(1); }
+        .icon { font-size: 65px; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="left-side">
+        <h2>แก้ไขข้อมูลส่วนตัว</h2>
+        <div class="img-container">
+            <div class="img-wrapper"><img id="preview" src="https://ui-avatars.com/api/?name=User" alt="Profile"></div>
+            <label for="fileInput" class="upload-btn">✎</label>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none;">
+        
+        <input type="text" id="nickName" placeholder="ชื่อเล่น">
+        <button class="btn-save" onclick="saveProfile()">บันทึกข้อมูล</button>
+        
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+        
+        <h2>เปลี่ยนรหัสผ่าน</h2>
+        <input type="password" id="oldPass" placeholder="รหัสผ่านเก่า">
+        <input type="password" id="newPass" placeholder="รหัสผ่านใหม่">
+        <button class="btn-save" onclick="changePassword()" style="background:#ef4444;">เปลี่ยนรหัสผ่าน</button>
+        
+        <button class="btn-back" onclick="window.location.href='index.html'">กลับหน้าหลัก</button>
+    </div>
+    <div class="right-side">
+        <h2>ความคืบหน้าการเรียน</h2>
+        <div id="progressList"></div>
+    </div>
+</div>
+
+<div id="modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" id="modalBox" onclick="event.stopPropagation()">
+        <span id="modalIcon" class="icon"></span>
+        <div id="modalText"></div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyANpBI1AVwKW6X2I9EPxmflU81RpumrXwo",
+        authDomain: "teach-af247.firebaseapp.com",
+        projectId: "teach-af247",
+        storageBucket: "teach-af247.firebasestorage.app",
+        messagingSenderId: "540555116590",
+        appId: "1:540555116590:web:23e79da0c82e8c865edfbf",
+        measurementId: "G-52HK2DB5XS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const loginUser = localStorage.getItem('userName');
+    let userScores = {};
+
+    window.showModal = (isSuccess, message, isDetail = false) => {
+        const modal = document.getElementById("modal");
+        const modalBox = document.getElementById("modalBox");
+        const icon = document.getElementById("modalIcon");
+        const text = document.getElementById("modalText");
+        text.innerHTML = message;
+        icon.innerHTML = isSuccess ? "✅" : (isDetail ? "📊" : "❌");
+        icon.style.color = isSuccess ? "#10b981" : (isDetail ? "#3b82f6" : "#ef4444");
+        
+        modal.classList.add("active"); 
+        setTimeout(() => modalBox.classList.add("show"), 10);
+        if (!isDetail) {
+            setTimeout(() => { modalBox.classList.remove("show"); setTimeout(() => modal.classList.remove("active"), 300); }, 1500);
+        }
+    };
+
+    window.closeModal = () => {
+        const modal = document.getElementById("modal");
+        const modalBox = document.getElementById("modalBox");
+        modalBox.classList.remove("show");
+        setTimeout(() => modal.classList.remove("active"), 300);
+    };
+
+    // 📍 🛠️ ปรับปรุงความใหญ่ฟอนต์ในโมดอลคะแนนดิบให้อ่านง่าย ชัดเจน (ขยายเป็น 18px และหัวข้อ 24px)
+    window.showUnitDetail = (unitNum) => {
+        const fullScore = 10;
+        const unit = userScores[`unit${unitNum}`] || {};
+        
+        // ฟังก์ชันจัดการคะแนนดิบให้ออกมาเป็นโครงสร้างชัดเจน
+        const displayScore = (val) => (val !== undefined && val !== null && val > 0) ? `${(val * fullScore / 100).toFixed(1)} / ${fullScore} คะแนน` : "0.0 / 10 คะแนน";
+        
+        const rawPre = (unit.pre !== undefined && unit.pre !== null) ? Number((unit.pre * fullScore / 100).toFixed(1)) : 0;
+        const rawEx = (unit.exercise !== undefined && unit.exercise !== null) ? Number((unit.exercise * fullScore / 100).toFixed(1)) : 0;
+        const rawPost = (unit.post !== undefined && unit.post !== null) ? Number((unit.post * fullScore / 100).toFixed(1)) : 0;
+        const totalRaw = (rawPre + rawEx + rawPost).toFixed(1);
+
+        const msg = `<div style="font-size:24px; font-weight:bold; margin-bottom:18px; text-align:center; color:#0f172a;">คะแนนหน่วยที่ ${unitNum}</div>
+            <div style="font-size:18px; line-height:2.4; text-align:left; width:95%; margin:0 auto; color:#334155;">
+                📖 แบบทดสอบก่อนเรียน: <b>${displayScore(unit.pre)}</b><br>
+                🛠️ แบบฝึกหัด: <b>${displayScore(unit.exercise)}</b><br>
+                📝 แบบทดสอบหลังเรียน: <b>${displayScore(unit.post)}</b>
+            </div>
+            <div style="margin-top:18px; font-weight:bold; color:#0ea5e9; text-align:center; font-size:22px; border-top:2px solid #e2e8f0; padding-top:12px;">
+                รวมทั้งหมด: ${totalRaw} / 30 คะแนน
+            </div>`;
+        showModal(true, msg, true);
+    };
+
+    window.changePassword = async () => {
+        const oldPass = document.getElementById('oldPass').value.trim();
+        const newPass = document.getElementById('newPass').value.trim();
+        if (!oldPass || !newPass) { showModal(false, "กรอกรหัสให้ครบ !"); return; }
+        try {
+            const userDocRef = doc(db, "users", loginUser);
+            const docSnap = await getDoc(userDocRef);
+            if (docSnap.exists() && docSnap.data().password === oldPass) {
+                await updateDoc(userDocRef, { password: newPass });
+                showModal(true, "เปลี่ยนรหัสผ่านเรียบร้อย!");
+                document.getElementById('oldPass').value = '';
+                document.getElementById('newPass').value = '';
+            } else { showModal(false, "รหัสผ่านเก่าไม่ถูกต้อง!"); }
+        } catch (e) { showModal(false, "เกิดข้อผิดพลาดว่ะ!"); }
+    };
+
+    window.saveProfile = async () => {
+        try {
+            await updateDoc(doc(db, "users", loginUser), {
+                nickName: document.getElementById('nickName').value,
+                profilePic: document.getElementById('preview').src
+            });
+            showModal(true, 'บันทึกข้อมูลเรียบร้อย!');
+        } catch (e) { showModal(false, 'บันทึกไม่สำเร็จ!'); }
+    };
+
+    window.onload = async () => {
+        if (!loginUser) { window.location.href = 'login.html'; return; }
+        const docSnap = await getDoc(doc(db, "users", loginUser));
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            document.getElementById('nickName').value = data.nickName || '';
+            if (data.profilePic) document.getElementById('preview').src = data.profilePic;
+            userScores = data.scores || {};
+            renderProgress();
+        }
+    };
+
+    // 📍 ปรับขนาดฟอนต์หัวหน่วยเรียนให้ชัดเจนเด่นชัดขึ้นเป็น 18px ชัดแจ๋วสะใจ
+    function renderProgress() {
+        const container = document.getElementById('progressList');
+        container.innerHTML = ''; 
+        
+        for(let i = 1; i <= 10; i++) {
+            const unit = userScores[`unit${i}`] || {};
+            
+            const prePercent = (unit.pre !== undefined && unit.pre !== null && unit.pre > 0) ? 100 : 0;
+            const exPercent = (unit.exercise !== undefined && unit.exercise !== null && unit.exercise > 0) ? 100 : 0;
+            const postPercent = (unit.post !== undefined && unit.post !== null && unit.post > 0) ? 100 : 0;
+
+            container.innerHTML += `<div class="progress-item" onclick="showUnitDetail(${i})">
+                <div style="font-weight:700; margin-bottom:15px; font-size:18px; color:#0f172a; border-left:4px solid #3b82f6; padding-left:8px;">หน่วยที่ ${i} (คลิกเพื่อดูคะแนนดิบ)</div>
+                
+                <div class="row"><span>แบบทดสอบก่อนเรียน</span><span>${prePercent}%</span></div>
+                <div class="bar-container"><div class="bar pre-bar" style="width: ${prePercent}%"></div></div>
+                
+                <div class="row"><span>แบบฝึกหัด</span><span>${exPercent}%</span></div>
+                <div class="bar-container"><div class="bar ex-bar" style="width: ${exPercent}%"></div></div>
+                
+                <div class="row"><span>แบบทดสอบหลังเรียน</span><span>${postPercent}%</span></div>
+                <div class="bar-container"><div class="bar quiz-bar" style="width: ${postPercent}%"></div></div>
+            </div>`;
+        }
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) { const reader = new FileReader(); reader.onload = (e) => document.getElementById('preview').src = e.target.result; reader.readAsDataURL(file); }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+function toggleMenu(el) {
+    el.parentElement.classList.toggle('active');
+}
+
+window.onload = () => {
+    // รวมข้อมูลจากทุกไฟล์
+    window.allPages = [
+        ...(window.courseContentUnit || []), ...(window.courseContentUnit2 || []),
+        ...(window.courseContentUnit3 || []), ...(window.courseContentUnit4 || []),
+        ...(window.courseContentUnit5 || []), ...(window.courseContentUnit6 || []),
+        ...(window.courseContentUnit7 || []), ...(window.courseContentUnit8 || []),
+        ...(window.courseContentUnit9 || []), ...(window.courseContentUnit10 || [])
+    ];
+    
+    window.allPages.forEach((page, i) => page.id = page.id || i);
+
+    if (window.allPages.length === 0) {
+        document.getElementById('page-content').innerHTML = "<h1>ไอ้สอง! ข้อมูลไม่มา!</h1>";
+    } else {
+        goToSlide(0); // เริ่มต้นที่หน้าแรก
+    }
+};
+
+function renderPage(index) {
+    const idx = parseInt(index);
+    if (window.allPages[idx]) {
+        document.getElementById('page-content').innerHTML = window.allPages[idx].content;
+        document.getElementById('pageCounter').innerText = `หน้า ${idx + 1} / ${window.allPages.length}`;
+        window.currentIndex = idx;
+    }
+}
+
+function goToSlide(index, element = null) {
+    if (index < 0 || index >= window.allPages.length) return;
+    
+    renderPage(index);
+
+    // 1. ลบไฮไลต์เก่าออก
+    document.querySelectorAll('.sub-item').forEach(item => item.classList.remove('active-menu'));
+
+    // 2. ค้นหา element ที่ต้องไฮไลต์ (ถ้าไม่ได้คลิกโดยตรง)
+    let targetItem = element;
+    if (!targetItem) {
+        document.querySelectorAll('.sub-item').forEach(item => {
+            // เช็คเลข index ใน onclick
+            if (item.getAttribute('onclick').includes(`goToSlide(${index},`)) {
+                targetItem = item;
+            }
+        });
+    }
+
+    // 3. จัดการไฮไลต์ + การกาง/หุบเมนู
+    if (targetItem) {
+        targetItem.classList.add('active-menu');
+        
+        // เลื่อน Sidebar ให้เห็นเมนูที่เลือก
+        targetItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // กางเฉพาะกลุ่มที่เลือก และปิดกลุ่มอื่น
+        const activeGroup = targetItem.closest('.menu-group');
+        document.querySelectorAll('.menu-group').forEach(group => {
+            if (group === activeGroup) {
+                group.classList.add('active'); // กางกลุ่มปัจจุบัน
+            } else {
+                group.classList.remove('active'); // ปิดกลุ่มอื่นทั้งหมด
+            }
+        });
+    }
+}
+
+function changePage(step) {
+    goToSlide(window.currentIndex + step, null);
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.className = "toast show " + type; // ใส่คลาสเพื่อเปลี่ยนสี
+    
+    // หายไปเองใน 3 วินาที
+    setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+    }, 3000);
+}
