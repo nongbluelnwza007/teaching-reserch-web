@@ -43,15 +43,22 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 9999; pointer-events: none; }
         .modal-overlay.active { display: flex; pointer-events: auto; }
         
-        /* 📍 ขยายขนาดความกว้างกล่องโมดอลเป็น 420px เพื่อรองรับฟอนต์ขนาดใหญ่โดยไม่หักบรรทัดมั่ว */
         .modal-content { background: white; padding: 35px; border-radius: 30px; text-align: center; width: 420px; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
         .modal-content.show { transform: scale(1); }
         .icon { font-size: 65px; margin-bottom: 10px; display: block; }
 
-        /* 📍 แก้ไขส่วน Responsive ให้ตรงกับ Class ของหน้า profile.html โดยเฉพาะ */
+        /* 📍 แก้ไขให้ Responsive โดยรักษา UI เดิม */
         @media only screen and (max-width: 768px) {
-            .card { flex-direction: column !important; padding: 15px !important; }
-            .left-side, .right-side { width: 100% !important; }
+            .card { 
+                flex-direction: column !important; 
+                padding: 15px !important; 
+                width: 95% !important; 
+                margin: 10px auto !important;
+            }
+            .left-side, .right-side { 
+                width: 100% !important; 
+                flex: none !important; 
+            }
             .modal-content { width: 90% !important; padding: 20px !important; }
         }
     </style>
