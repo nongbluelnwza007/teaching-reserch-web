@@ -42,6 +42,49 @@ html, body {
     overflow: hidden;
     color: var(--text);
     line-height: 1.6;
+    transition: background-color 0.5s ease;
+}
+
+/* Profile Cover Banner Styles */
+.user-profile-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #1e293b;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.user-profile-cover.bg-default {
+    background: #070913; 
+    background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+.user-profile-cover.bg-void {
+    background: #020205;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+.user-profile-cover.bg-nebula {
+    background: #0a0518;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.18) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
+}
+.user-profile-cover.bg-aurora {
+    background: #03080e;
+    background-image: 
+        radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
+}
+.user-profile-cover.bg-custom {
+    background-color: #070913;
 }
 
 /* ==========================================================================
@@ -204,75 +247,129 @@ html, body {
    6. USER PROFILE SECTION
    ========================================================================== */
 .user-profile {
-    padding: 20px;
-    border-top: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding: 60px 18px 22px 18px; /* Shift content down to fit cover photo */
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    background: linear-gradient(180deg, rgba(19, 27, 46, 0.45) 0%, rgba(11, 15, 25, 0.85) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 -10px 20px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    overflow: hidden; /* Prevent cover photo overflow */
 }
 
 .user-avatar {
-    width: 65px;
-    height: 65px;
+    position: relative;
+    z-index: 2; /* Sit on top of cover photo */
+    margin-top: -15px; /* Overlap cover photo */
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background-size: cover;
     background-position: center;
     flex-shrink: 0;
-    border: 2px solid rgba(99, 102, 241, 0.4);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
-    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-image: linear-gradient(#131b2e, #131b2e) padding-box, var(--accent-gradient) border-box;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar:hover {
+    transform: scale(1.04) rotate(4deg);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.45);
+}
+
+.user-info {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 
 .user-name {
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--white);
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.user-role {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+.user-role.admin {
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.35);
+    color: #fef08a;
+}
+
+.user-role.student {
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: #c7d2fe;
 }
 
 .profile-actions {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 8px;
     width: 100%;
 }
 
 .profile-link-nav, .logout-btn {
-    flex: 1;
+    width: 100%;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-link-nav {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
-    color: var(--text);
+    background: var(--accent-gradient);
+    color: var(--white);
+    box-shadow: 0 4px 10px var(--accent-glow);
+    border: none;
 }
 
 .profile-link-nav:hover {
-    background: var(--white);
-    color: var(--primary);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.45);
+    filter: brightness(1.1);
 }
 
 .logout-btn {
-    background: transparent;
-    border: 1px solid var(--danger);
-    color: var(--danger);
+    background: rgba(244, 63, 94, 0.08);
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    color: #fda4af;
 }
 
 .logout-btn:hover {
     background: var(--danger);
     color: var(--white);
-    box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
-    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -531,50 +628,6 @@ html, body {
     /* --- ส่วนแก้โปรไฟล์: ปุ่มเท่ากันและฟอนต์เหมือนกันเป๊ะ --- */
     .user-profile {
         margin-top: auto !important;
-        background-color: rgba(0, 0, 0, 0.3) !important;
-        border-radius: 16px 16px 0 0 !important;
-        padding: 20px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 15px !important;
-        width: 100% !important;
-    }
-
-    .profile-actions {
-        display: flex !important;
-        flex-direction: row !important;
-        width: 100% !important;
-        gap: 10px !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    .profile-link-nav, .logout-btn {
-        flex: 1 !important;
-        max-width: 47% !important;
-        height: 44px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border-radius: 10px !important;
-        font-weight: bold !important;
-        font-size: 14px !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        box-sizing: border-box !important;
-        cursor: pointer !important;
-    }
-
-    .profile-link-nav {
-        border: none !important;
-        background: var(--white) !important;
-        color: var(--primary) !important;
-    }
-
-    .logout-btn {
-        border: 1px solid var(--danger) !important;
-        background: transparent !important;
-        color: var(--danger) !important;
     }
 }
 

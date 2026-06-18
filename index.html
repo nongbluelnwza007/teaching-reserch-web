@@ -23,21 +23,13 @@
     <script>
         if (!sessionStorage.getItem('isLoggedIn')) { window.location.href = 'login.html'; }
     </script>
-    <style>
-        .user-profile { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px 10px; border-top: 1px solid #e2e8f0; background: #1e293b; width: 100%; box-sizing: border-box; position: relative; z-index: 999; }
-        .user-avatar { width: 90px; height: 90px; border-radius: 50%; background-size: cover; background-position: center; margin-bottom: 10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .user-info { width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .user-name { font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 8px; word-break: break-word; line-height: 1.4; }
-        .profile-actions { display: flex; gap: 8px; margin-top: 2px; justify-content: center; width: 100%; }
-        .logout-btn, .profile-link-nav { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; border: 1px solid #cbd5e1; color: #334155; text-decoration: none; display: inline-block; }
-        .logout-btn:hover, .profile-link-nav:hover { background: #f1f5f9; border-color: #94a3b8; }
-        
-    </style>
+
 
 
 
 </head>
 <body>
+
     <div id="menuBackdrop" class="menu-backdrop"></div>
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()"> ☰ </button>    
     <div class="app-container">
@@ -151,12 +143,29 @@
             </div>
             
             <div class="user-profile">
+                <div class="user-profile-cover bg-default" id="sidebar-cover"></div>
+                <script>
+                    (function() {
+                        const savedTheme = localStorage.getItem('bgTheme');
+                        const savedBgImage = localStorage.getItem('bgImage');
+                        if (savedTheme) {
+                            const cover = document.getElementById('sidebar-cover');
+                            if (cover) {
+                                cover.className = 'user-profile-cover ' + savedTheme;
+                                if (savedTheme === 'bg-custom' && savedBgImage) {
+                                    cover.style.backgroundImage = 'url(' + savedBgImage + ')';
+                                }
+                            }
+                        }
+                    })();
+                </script>
                 <div class="user-avatar" id="main-avatar"></div>
                 <div class="user-info">
                     <div class="user-name" id="display-full-name">กำลังโหลด...</div>
+                    <div class="user-role" id="display-user-role">ผู้เรียน</div>
                     <div class="profile-actions">
-                        <a href="./profile.html" class="profile-link-nav">ข้อมูลส่วนตัว</a>
-                        <button class="logout-btn" onclick="logout()" style="color: #ef4444; border-color: #ef4444;">ออก</button>
+                        <a href="./profile.html" class="profile-link-nav">โปรไฟล์ส่วนตัว</a>
+                        <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
                     </div>
                 </div>
             </div>
@@ -209,6 +218,34 @@
                 document.getElementById('display-full-name').innerText = `${data.firstName} ${data.lastName}${data.nickName ? ' ('+data.nickName+')' : ''}`;
                 const avatar = document.getElementById('main-avatar');
                 avatar.style.backgroundImage = data.profilePic ? `url('${data.profilePic}')` : `url('https://ui-avatars.com/api/?name=${data.firstName}+${data.lastName}&background=0ea5e9&color=fff&size=60')`;
+                
+                // Set dynamic role badge
+                const roleBadge = document.getElementById('display-user-role');
+                if (roleBadge) {
+                    if (loginUser === 'blue') {
+                        roleBadge.innerText = 'อาจารย์ผู้สอน';
+                        roleBadge.className = 'user-role admin';
+                    } else {
+                        roleBadge.innerText = 'ผู้เรียน';
+                        roleBadge.className = 'user-role student';
+                    }
+                }
+
+                // Apply background theme from Firestore
+                if (data.bgTheme) {
+                    const cover = document.getElementById('sidebar-cover');
+                    if (cover) {
+                        cover.className = 'user-profile-cover ' + data.bgTheme;
+                        if (data.bgTheme === 'bg-custom' && data.bgImage) {
+                            cover.style.backgroundImage = `url('${data.bgImage}')`;
+                            localStorage.setItem('bgImage', data.bgImage);
+                        } else {
+                            cover.style.backgroundImage = '';
+                            localStorage.removeItem('bgImage');
+                        }
+                    }
+                    localStorage.setItem('bgTheme', data.bgTheme);
+                }
             }
 
             if (typeof goToSlide === 'function') goToSlide(0);
