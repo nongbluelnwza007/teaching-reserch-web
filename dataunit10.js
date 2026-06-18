@@ -1,59 +1,121 @@
 window.courseContentUnit10 = [
     {
         title: "10.1 การบำรุงรักษาเครื่องและอุปกรณ์ต่อพ่วง",
-        content: `<h1>10.1 การบำรุงรักษาเครื่องและอุปกรณ์ต่อพ่วง (Hardware Maintenance)</h1>
-            <p>การบำรุงรักษาในระดับวิศวกรรมไม่ใช่แค่การกำจัดฝุ่น แต่คือการรักษา "Physical Integrity" ของฮาร์ดแวร์ให้อยู่ในสถานะที่พร้อมทำงานตลอดเวลา</p>
-            <p>• <strong>Advanced Thermal Management</strong><br>
-            - <strong>Airflow Engineering :</strong> การจัดสายไฟ (Cable Management) เป็นหัวใจสำคัญ สายไฟที่เกะกะจะขวางทางลมและสร้าง "Dead Zone" ซึ่งเป็นจุดสะสมความร้อน ทำให้ HDD และ RAM เสื่อมสภาพเร็วขึ้น<br>
-            - <strong>Thermal Paste Application :</strong> การทาซิลิโคนต้องคำนึงถึงการไล่ฟองอากาศ ควรใช้วิธีแต้มจุดตรงกลางหรือรูปกากบาท เพื่อให้เนื้อซิลิโคนกระจายตัวครอบคลุมผิวสัมผัสระหว่าง CPU Heat Spreader และ Heatsink ให้ได้มากที่สุด</p>
-            <p>• <strong>Contact & Connector Hygiene</strong><br>
-            - พอร์ตเชื่อมต่อ เช่น USB, HDMI เมื่อใช้งานไปนานๆ อาจเกิดออกไซด์บนผิวสัมผัส การเลือกใช้ Contact Cleaner ต้องมั่นใจว่าเป็นสูตร "Non-residue" (ระเหยแห้งทันที ไม่ทิ้งคราบน้ำมัน) เพื่อป้องกันความต้านทานไฟฟ้าที่สูงเกินไปจนสัญญาณขาดหาย</p>
-            <p>• <strong>Peripherals Maintenance</strong><br>
-            - อุปกรณ์ต่อพ่วงอย่างเมาส์และคีย์บอร์ดเป็นแหล่งสะสมของเซลล์ผิวหนังและไขมัน ซึ่งเป็นอาหารชั้นดีของเชื้อราในสภาวะความชื้นสูง ควรทำความสะอาดด้วยแอลกอฮอล์ 70% และสำลีพันก้านเพื่อล้างคราบไขมันที่สวิตช์และปุ่มกด</p>
+        content: `
+            <h1>10.1 การบำรุงรักษาเครื่องและอุปกรณ์ต่อพ่วง (Hardware Maintenance)</h1>
+            <p>การบำรุงรักษากายภาพเครื่องคอมพิวเตอร์ระดับวิศวกรรม มีวัตถุประสงค์เพื่อยืดอายุการใช้งานวัสดุตัวนำและรักษาประสิทธิภาพระบายความร้อนให้สูงสุด:</p>
+            
+            <div class="callout-box">
+                <h3>1. การสลายตัวของซิลิโคนระบายความร้อน (Thermal Interface Material Degradation)</h3>
+                <p>ซิลิโคนความร้อนมีส่วนผสมของสารประกอบซิลิโคนกึ่งเหลวและอนุภาคเหนี่ยวนำความร้อนโลหะ/เซรามิก เมื่อใช้งานต่อเนื่องเป็นเวลา 1-2 ปี สารละลายเหลวระเหยจะแห้งตัวจนสูญเสียความยืดหยุ่น เกิดการแตกร้าวแยกตัวเป็นของแข็งแห้งเกรียม</p>
+                <p>ซึ่งส่งผลให้ค่าความต้านทานความร้อน (Thermal Resistance) สูงขึ้นอย่างมาก ช่างบำรุงรักษาต้องล้างขูดคราบเดิมออกโดยใช้ผ้าชุบน้ำยา <strong>ไอโซโพรพิลแอลกอฮอล์เข้มข้น 99% (99% Isopropyl Alcohol)</strong> ล้างคราบจนกระดอง CPU สะอาดหมดจดก่อนหยอดบีบซิลิโคนเส้นใหม่ทดแทน</p>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. การทำความสะอาดหน้าจุดสัมผัสโลหะนำไฟฟ้า (Contact &amp; Connector Hygiene)</h3>
+                <p>พินเชื่อมต่อบริเวณหน้าทองแดงแรม หรือสล็อตการ์ดจอ เกิดปฏิกิริยากับความชื้นอากาศกลายเป็นชั้นฟิล์มออกไซด์เกาะตัว ส่งผลให้ความต้านทานสูงขึ้นและชิ้นส่วนเชื่อมต่อข้อมูลหลุดหาย</p>
+                <ul>
+                    <li><strong>การบำรุงรักษาที่ถูกต้อง:</strong> ใช้สเปรย์ทำความสะอาดหน้าสัมผัสไฟฟ้าชนิดแห้งสนิทรวดเร็ว <strong>(Quick Dry Electronic Contact Cleaner - สูตรไร้คราบ)</strong> ฉีดพ่นล้างสิ่งสกปรกและออกไซด์</li>
+                    <li><strong>ข้อควรระวัง:</strong> ห้ามใช้น้ำมันอเนกประสงค์หล่อลื่นทั่วไป (เช่น WD-40 กระป๋องสีน้ำเงินคาดส้มสูตรน้ำมัน) ฉีดลงบนเมนบอร์ดหรือขั้วแรมเด็ดขาด เนื่องจากจะทิ้งชั้นฟิล์มน้ำมันเคลือบสะสมความร้อนและดูดเกาะฝุ่นผงเข้ามาทำให้ลัดวงจรง่ายกว่าเดิม</li>
+                </ul>
+            </div>
+
             <div style="display: flex; justify-content: space-between; gap: 20px; margin: 25px auto; max-width: 800px;">
-                <img src="images/cool.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="images/key.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-            </div>`
+                <img src="images/cool.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+                <img src="images/key.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+            </div>
+        `
     },
     {
         title: "10.2 การบำรุงรักษาซอฟต์แวร์",
-        content: `<h1>10.2 การบำรุงรักษาซอฟต์แวร์ (Software Maintenance Lifecycle)</h1>
-            <p>การบำรุงรักษาซอฟต์แวร์มีเป้าหมายสูงสุดคือการรักษา "Registry & File System Integrity"</p>
-            <p>• <strong>File System Audit</strong><br>
-            - <strong>System File Checker (sfc /scannow) :</strong> ใช้ตรวจสอบความถูกต้องของไฟล์ระบบ Windows หากตรวจพบไฟล์ที่เสียหายหรือถูกดัดแปลงโดยมัลแวร์ ระบบจะทำการซ่อมแซมให้โดยอัตโนมัติ<br>
-            - <strong>Check Disk (chkdsk /f /r) :</strong> ใช้สำหรับตรวจสอบความเสียหายในระดับโครงสร้างดิสก์ (Logical) และค้นหา Bad Sectors บนผิวจานแม่เหล็ก (Physical) สำหรับ HDD</p>
-            <p>• <strong>Storage Optimization (SSD Focus)</strong><br>
-            - <strong>TRIM Command :</strong> SSD จำเป็นต้องรันคำสั่ง TRIM เพื่อจัดการ Block ข้อมูลที่ไม่ได้ใช้งานแล้วให้ว่าง เพื่อคงประสิทธิภาพการเขียนข้อมูลไว้เสมอ<br>
-            - <strong>Defragmentation Policy :</strong> การทำ Defrag บน SSD เป็นสิ่งที่ต้องห้ามเด็ดขาด! เพราะการกระทำดังกล่าวเป็นการสร้าง Write Cycles โดยไม่จำเป็น ซึ่งจะลดอายุการใช้งานของ Cell ใน SSD อย่างรวดเร็ว</p>
-            <p>• <strong>Software Bloat Control</strong><br>
-            - ควรหมั่นลบไฟล์แคชที่ล้าสมัยในโฟลเดอร์ <code>C:\\Windows\\SoftwareDistribution\\Download</code> ซึ่งไฟล์เหล่านี้คือตัวการที่ทำให้เนื้อที่ใน Drive C: หายไปโดยไม่จำเป็น</p>
-            <div style="display: flex; justify-content: space-between; gap: 20px; margin: 25px auto; max-width: 800px;">
-                <img src="images/scannow.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="images/ssdcheck.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+        content: `
+            <h1>10.2 การบำรุงรักษาซอฟต์แวร์และการรักษาระบบไฟล์ (Software Maintenance)</h1>
+            <p>เพื่อปกป้องระบบไฟล์จากการชำรุดเสียหาย และจัดระเบียบโครงสร้างซอฟต์แวร์ให้ไหลลื่นสูงสุด:</p>
+            
+            <div class="callout-box">
+                <h3>1. ชุดคำสั่งซ่อมแซมความสมบูรณ์ไฟล์ระบบ (System File Integrity Commands)</h3>
+                <p>กรณีวินโดว์ทำงานติดขัด มีไฟล์เสียหายจากระบบไฟดับกะทันหัน ให้เปิดโปรแกรม Command Prompt ด้วยสิทธิ์ผู้ดูแลระบบ และรันชุดคำสั่งวิเคราะห์ดังนี้:</p>
+                <ul>
+                    <li><strong>sfc /scannow:</strong> ตรวจสอบลายเซ็นและความสมบูรณ์ของไฟล์แกนระบบ Windows ทั้งหมดเปรียบเทียบกับไฟล์สำรองแท้ในเครื่อง หากตรวจเจอส่วนต่างจะสลับเขียนคัดลอกไฟล์แท้เข้าไปแทนที่โดยอัตโนมัติ</li>
+                    <li><strong>DISM.exe (Deployment Image Servicing and Management):</strong> รันคำสั่ง <code>DISM /Online /Cleanup-Image /RestoreHealth</code> เพื่อให้วินโดว์เชื่อมต่อไปยังเซิร์ฟเวอร์หลักของ Microsoft เพื่อดาวน์โหลดไฟล์ระบบรุ่นแท้ที่ตรงกันมาเขียนทับซ่อมแซมแฟ้มข้อมูลเสียหายในเครื่อง (แนะนำให้รันก่อนใช้ sfc /scannow)</li>
+                    <li><strong>chkdsk C: /f /r:</strong> ตรวจสอบหาความเสียหายเชิงตรรกะของสารบบไฟล์ NTFS (Logical Errors) และสแกนพิกัดจานแม่เหล็กหาจุด Bad Sector พร้อมกู้ข้อมูลที่อ่านได้ย้ายไปบล็อกปลอดภัย (ต้องการการรีสตาร์ทเพื่อรันสแกน)</li>
+                </ul>
             </div>
-            `
+
+            <div class="callout-box box-danger">
+                <h3>2. การปรับปรุงระบบเก็บข้อมูล SSD และคำเตือนเรื่อง Defrag</h3>
+                <ul>
+                    <li><strong>คำสั่ง TRIM Command:</strong> ระบบ Windows จะรัน TRIM อัตโนมัติกับไดรฟ์ที่เป็น SSD เพื่อส่งสัญญาณแจ้งตัวคอนโทรลเลอร์บล็อกความจำว่า ข้อมูลตรงส่วนไหนถูกลบอย่างถาวรแล้ว ส่งผลให้ตัวควบคุม SSD ดำเนินกระบวนการเคลียร์บล็อกล่วงหน้า (Garbage Collection) ทำให้การเขียนข้อมูลรอบใหม่สามารถทำได้ด้วยความเร็วเต็มสปีดทันที</li>
+                    <li><strong>ข้อห้ามบำรุงรักษากับ SSD:</strong> <strong>ห้ามทำการจัดเรียงข้อมูลบนดิสก์ (Defragmentation) กับไดรฟ์ที่เป็น SSD เด็ดขาด</strong> เนื่องจากตัว SSD มีขีดจำกัดจำนวนครั้งการเขียนลบข้อมูลลงบนเซลล์ (Write Endurance Cycles) และการจัดระเบียบ Defrag ไม่มีประโยชน์ใดๆ ต่อความเร็วของ SSD ที่เข้าถึงตำแหน่งพิกเซลแบบสุ่มด้วยไฟฟ้าอยู่แล้ว การฝืนทำ Defrag จะส่งผลให้ SSD เขียนไฟล์ซ้ำซ้อนเปล่าประโยชน์ล้านๆ ครั้ง และเร่งชิปหน่วยความจำให้พังเสียหายหมดอายุก่อนกำหนดอย่างรวดเร็ว</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; gap: 20px; margin: 25px auto; max-width: 800px;">
+                <img src="images/scannow.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+                <img src="images/ssdcheck.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+            </div>
+        `
     },
     {
         title: "10.3 การสำรองและกู้คืนข้อมูล",
-        content: `<h1>10.3 การสำรองและกู้คืนข้อมูล (Backup & Disaster Recovery)</h1>
-            <p>มืออาชีพไม่ทำแค่ Copy ไฟล์ แต่จะเน้นการจัดการในระดับ "Image-based Backup"</p>
-            <p>• <strong>System Image Backup :</strong> การสร้าง "ภาพถ่าย" ของระบบปฏิบัติการทั้งลูกในขณะที่เครื่องทำงานสมบูรณ์ (Snapshot) เป็นวิธีที่ประหยัดเวลาที่สุด เพราะสามารถกู้คืนทั้ง OS, โปรแกรม และการตั้งค่าต่างๆ กลับมาใช้งานได้ภายใน 10-15 นาที</p>
-            <p>• <strong>Versioning System :</strong> การสำรองข้อมูลต้องใช้ระบบเวอร์ชัน (เช่น การเก็บไฟล์ย้อนหลัง 7 วัน) เพื่อป้องกันกรณีร้ายแรง เช่น การเผลอเซฟไฟล์ทับ (Overwrite) หรือกรณีที่ไฟล์งานถูก Ransomware เข้ารหัส</p>
-            <p>• <strong>Offsite Redundancy :</strong> กลยุทธ์การสำรองที่ดีที่สุดคือ "3-2-1 Rule" คือข้อมูลสำคัญต้องมี 3 ชุด ในสื่อเก็บข้อมูล 2 รูปแบบ และต้องมี 1 ชุดอยู่ที่ Offsite (Cloud หรือ NAS ที่แยกวงจรไฟฟ้าออกจากคอมพิวเตอร์หลัก) เพื่อป้องกันเหตุการณ์ไฟไหม้หรือไฟกระชากที่อาจลามถึงอุปกรณ์สำรองข้อมูลในที่เดียวกัน</p>
-            <img src="images/recovery.png" alt="recovery" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:4px solid #ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.15);">`
+        content: `
+            <h1>10.3 ยุทธศาสตร์การป้องกันภัยข้อมูลเสียหาย (Backup &amp; Disaster Recovery)</h1>
+            <p>เพื่อปกป้องระบบจากสถานการณ์ภัยพิบัติข้อมูล เช่น ไวรัสเรียกค่าไถ่ หรือฮาร์ดดิสก์หลักชำรุดเสียหาย ช่างเทคนิคต้องนำนโยบายความมั่นคงระดับสากลมาปรับใช้ ดังนี้:</p>
+
+            <div class="callout-box box-success">
+                <h3>1. กฎการสำรองข้อมูลมาตรฐานสากล 3-2-1 Rule</h3>
+                <ul>
+                    <li><strong>3 Copies of Data:</strong> จัดเก็บข้อมูลสำคัญไว้ทั้งหมดอย่างน้อย 3 ชุด (ข้อมูลเครื่องหลัก 1 ชุด และข้อมูลสำรองอย่างน้อย 2 ชุด)</li>
+                    <li><strong>2 Different Media Types:</strong> บันทึกไฟล์สำรองลงบนสื่อเก็บข้อมูลอย่างน้อย 2 ชนิดที่แตกต่างกันเชิงระบบฟิสิกส์ เพื่อลดโอกาสชำรุดพร้อมกัน เช่น การจัดเก็บชุดแรกในไดรฟ์ SSD คอมพิวเตอร์หลัก และชุดสองในเครื่องเก็บข้อมูลภายนอก (External HDD) หรืออุปกรณ์แชร์ข้อมูลเครือข่าย NAS</li>
+                    <li><strong>1 Offsite Storage:</strong> ต้องส่งไฟล์สำรอง 1 ชุดออกไปเก็บไว้นอกสถานที่ปฏิบัติงานจริง เช่น จัดส่งไปเก็บไว้บนระบบฝากไฟล์ระบบคลาวด์ (Cloud Storage) หรือนำฮาร์ดดิสก์สำรองไปเก็บไว้อีกสาขาอาคาร เพื่อป้องกันความสูญเสียจากเหตุอัคคีภัย วาตภัย หรือไฟกระชากแรงสูงลัดวงจรอุปกรณ์ภายในบ้านทั้งหมด</li>
+                </ul>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. การสำรองข้อมูลแบบสแนปช็อตภาพระบบ (Image-Based Backup)</h3>
+                <p>เป็นการโคลนถ่ายสำเนาระบบไฟล์วินโดว์และพาร์ทิชันทั้งหมดออกมาเป็นไฟล์ภาพดิสก์ขนาดใหญ่ชุดเดียว (.iso หรือ .vhdx) ประโยชน์คือเมื่อระบบหลักขัดข้อง ช่างเทคนิคสามารถสั่งกู้ภาพระบบคืนกลับมาได้ทันทีเสร็จสรรพใน 10 นาที โดยตัวระบบ OS, การตั้งค่า, คีย์ลิขสิทธิ์ และโปรแกรมประยุกต์ต่างๆ จะกลับมาทำงานในสภาพสมบูรณ์เหมือนช่วงเวลาที่จับภาพไว้ทุกประการ</p>
+            </div>
+
+            <img src="images/recovery.png" alt="recovery" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+        `
     },
     {
-        title: "10.4 การปรับปรุงเครื่อง (System Upgrading Strategy)",
-        content: `<h1>10.4 การปรับปรุงเครื่อง (System Upgrading Strategy)</h1>
-            <p>การอัปเกรดไม่ใช่การเปลี่ยนของใหม่ที่แพงที่สุด แต่คือการแก้ปัญหา "Performance Bottleneck"</p>
-            <p>• <strong>Step 1: Storage Shift :</strong> หากระบบยังใช้ HDD เป็น Drive C: การย้ายไปใช้ SSD (SATA หรือ NVMe) คือการลงทุนที่คุ้มค่าที่สุด เพราะช่วยลด Latency ในการอ่านไฟล์ระบบได้มหาศาล</p>
-            <p>• <strong>Step 2: RAM Dual Channel :</strong> การเพิ่ม RAM ไม่ใช่แค่เรื่อง "ความจุ" แต่ต้องคำนึงถึง "Bandwidth" การใส่ RAM 2 แถวที่สเปกเหมือนกันจะเปิดใช้งาน Dual Channel ทำให้ระบบส่งผ่านข้อมูลได้เร็วขึ้นเกือบ 2 เท่า</p>
-            <p>• <strong>Step 3: Firmware & BIOS Upgrading :</strong> อัปเดต BIOS เพื่อรับ Microcode ล่าสุดของ CPU ซึ่งช่วยแก้ช่องโหว่ความปลอดภัยระดับฮาร์ดแวร์ (เช่น Spectre/Meltdown) ข้อควรระวัง: ต้องทำในสภาพแวดล้อมที่ไฟนิ่งที่สุด หรือทำผ่าน UPS เท่านั้นเพื่อป้องกันการ Bricked</p>
-            <p>• <strong>Step 4: Driver Refinement :</strong> หลังอัปเกรดอุปกรณ์ (โดยเฉพาะการ์ดจอ) ต้องทำ "Driver Clean Install" โดยใช้เครื่องมืออย่าง DDU เพื่อกำจัดไฟล์ไดรเวอร์เก่าที่ตกค้างออกให้สะอาดก่อนติดตั้งไดรเวอร์ใหม่ ป้องกันปัญหาการทับซ้อนกันของ DLL Files</p>
+        title: "10.4 การปรับปรุงเครื่อง",
+        content: `
+            <h1>10.4 กลยุทธ์การบริหารจัดการคอขวดระบบและการปรับปรุง (Upgrading Strategy)</h1>
+            <p>การอัปเกรดปรับปรุงระบบคอมพิวเตอร์อย่างมีสิทธิภาพและคุ้มค่าสูงสุด ต้องสืบค้นและกำจัดชิ้นส่วนที่เสื่อมสภาพหรือช้าที่สุดในห่วงโซ่การประมวลผล (Performance Bottleneck) ดังนี้:</p>
+
+            <table style="width:100%; border-collapse:collapse; margin:15px 0;">
+                <thead>
+                    <tr>
+                        <th style="padding:8px; text-align:left; width:25%;">หัวข้ออัปเกรด</th>
+                        <th style="padding:8px; text-align:left; width:45%;">ผลลัพธ์ประสิทธิภาพเชิงความเร็ว</th>
+                        <th style="padding:8px; text-align:left; width:30%;">ข้อควรระวังทางเทคนิค</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:8px; font-weight:bold;">1. เปลี่ยน HDD บูตระบบเดิมเป็น SSD</td>
+                        <td style="padding:8px; color:#4ade80; font-weight:bold;">เพิ่มสมรรถนะสูงสุดเห็นได้ชัดเจนที่สุด บูตเข้าระบบเร็วขึ้นจาก 1-2 นาทีเหลือเสี้ยววินาที ระบบตอบสนองการเขียนไฟล์เร็ว</td>
+                        <td style="padding:8px;">ต้องโคลนย้ายไฟล์ OS หรือติดตั้งใหม่ทั้งหมดลง SSD ให้เป็นไดรฟ์ C: บูตหลัก</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; font-weight:bold;">2. เพิ่มแรมและจับคู่ช่องสัญญาณ (Dual Channel RAM)</td>
+                        <td style="padding:8px; color:#4ade80; font-weight:bold;">ลดปัญหาการสะดุดค้างระหว่างสลับหน้าต่างงาน ปลดล็อกแบนด์วิดท์ส่งข้อมูลให้ CPU ได้เร็วกว่าเดิมเกือบ 2 เท่าตัว</td>
+                        <td style="padding:8px;">ควรเลือกซื้อแรมขนาดความจุ ความถี่บัส และค่า CL ที่ตรงสัมพันธ์กันกับแถวเดิม</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; font-weight:bold;">3. การทำความสะอาดไดรเวอร์ชิปกราฟิกการ์ดจอใหม่ (DDU clean install)</td>
+                        <td style="padding:8px; color:#4ade80; font-weight:bold;">ขจัดปัญหาความขัดแย้งของโค้ดไฟล์ DLL เก่า ซึ่งเป็นสาเหตุของอาการภาพสั่น เฟรมเรตแกว่ง หรือจอฟ้าหลังเปลี่ยนการ์ดใบใหม่</td>
+                        <td style="padding:8px;">ต้องปิดเครื่องเพื่อเปิดบูตระบบเข้าสู่โหมดการทำงาน <strong>Safe Mode</strong> แล้วเรียกใช้โปรแกรม DDU ลบออกให้เกลี้ยงก่อนลงของใหม่</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <div style="display: flex; justify-content: space-between; gap: 20px; margin: 25px auto; max-width: 800px;">
-                <img src="images/change.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="images/ramslot.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <img src="images/change.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+                <img src="images/ramslot.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
             </div>
-            `
+        `
     }
 ];

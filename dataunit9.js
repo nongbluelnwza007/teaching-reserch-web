@@ -1,50 +1,127 @@
 window.courseContentUnit9 = [
     {
         title: "9.1 กระบวนการแก้ไขปัญหาคอมพิวเตอร์",
-        content: `<h1>9.1 กระบวนการแก้ไขปัญหาคอมพิวเตอร์ (The Systematic Troubleshooting Workflow)</h1>
-            <p>ช่างมืออาชีพจะไม่ "มั่ว" แต่จะใช้ Scientific Method ในการซ่อม</p>
-            <p>• <strong>Symptom Isolation :</strong> แยกให้ออกว่าเป็นปัญหาที่ Hardware (พัง/หลวม) หรือ Software (Config ผิด/ไฟล์เสีย/ไวรัส)</p>
-            <p>• <strong>Environmental Audit :</strong> ตรวจสอบปัจจัยภายนอก เช่น ไฟตก, ฝุ่นเยอะ, อุณหภูมิห้องสูง</p>
-            <p>• <strong>The "Minimum System" Test :</strong> ถอดทุกอย่างออกให้เหลือแค่ CPU, RAM (1 แถว), เมนบอร์ด และ PSU เพื่อดูว่าบูตขึ้นไหม</p>
-            <p>• <strong>Logical Verification :</strong> ทุกครั้งที่แก้ปัญหาได้ ต้องทดสอบ Stress Test ทันทีเพื่อให้มั่นใจว่าไม่ได้เป็นปัญหาที่ปลายเหตุ</p>
-            <img src="images/workflow.png" alt="workflow" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:4px solid #ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.15);">`
+        content: `
+            <h1>9.1 กระบวนการแก้ไขปัญหาคอมพิวเตอร์ (Systematic Troubleshooting Workflow)</h1>
+            <p>ช่างซ่อมบำรุงคอมพิวเตอร์ระดับวิศวกร จะไม่ใช้วิธีการสุ่มเดาอาการเด็ดขาด แต่จะดำเนินตามกระบวนการทางวิทยาศาสตร์ในการจำแนกแยกแยะอาการ (Isolation of Variables) ดังนี้:</p>
+            
+            <div class="callout-box">
+                <h3>1. การแยกแยะจำแนกระหว่างฮาร์ดแวร์และซอฟต์แวร์ (Symptom Isolation)</h3>
+                <ul>
+                    <li><strong>ปัญหาเชิงฮาร์ดแวร์ (Hardware):</strong> อาการเปิดไม่ติดพัดลมไม่หมุน, เปิดติดแต่ไม่มีสัญญาณภาพ (No POST), เครื่องดับทันทีที่ประมวลผลหนัก หรือมีเสียงสัญญาณ Beep Code แจ้งเตือน</li>
+                    <li><strong>ปัญหาเชิงซอฟต์แวร์ (Software):</strong> ระบบบูตพ้นหน้าร้านเมนบอร์ดแล้ว แต่ค้างในโลโก้วินโดว์, เกิดจอฟ้า (BSOD) รหัสชี้พิกัดชิ้นส่วนไฟล์ระบบ (เช่น <code>nvlddmkm.sys</code> ซึ่งชี้ไปที่ไดรเวอร์การ์ดจอ NVIDIA), หรือเกิดอาการโปรแกรมปิดตัวเองกระทันหัน</li>
+                </ul>
+            </div>
+
+            <div class="callout-box box-danger">
+                <h3>2. การทดสอบแบบลดทอนอุปกรณ์ต่ำสุด (Minimum System Test)</h3>
+                <p>กรณีเครื่องมีอาการวิกฤต บูตไม่ขึ้น มีปัญหาไฟสลัว หรือหาสาเหตุไม่ได้ ช่างต้องถอดส่วนเชื่อมต่อพ่วงทั้งหมดออก เพื่อให้เหลือเฉพาะ <strong>ระบบคอมพิวเตอร์พื้นฐานที่จำเป็นที่สุดในการบูต</strong> ดังนี้:</p>
+                <ul>
+                    <li>เมนบอร์ด + หน่วยประมวลผล CPU และชุดระบายความร้อน</li>
+                    <li>แผงหน่วยความจำแรมระบบเพียง <strong>1 แถว</strong> (ติดตั้งในสล็อต A2)</li>
+                    <li>แหล่งจ่ายไฟหลัก (PSU)</li>
+                    <li>การ์ดจอ (กรณี CPU ไม่มีชิปแสดงผลรวม) และเสียบสายสัญญาณจอ</li>
+                </ul>
+                <p>ให้ทำการถอดสายฮาร์ดดิสก์, SSD M.2, ขั้ว USB หน้าเคส, สายเสียงออดิโอ, และการ์ดเสริมอื่นๆ ออกให้หมด หากเครื่องบูตเข้าไบออสได้สำเร็จ แสดงว่าเมนบอร์ดและ CPU ปกติ ช่างจึงค่อยทะยอยเสียบอุปกรณ์คืนทีละชิ้นเพื่อหาตัวที่ชำรุดลัดวงจร</p>
+            </div>
+
+            <img src="images/workflow.png" alt="workflow" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+        `
     },
     {
         title: "9.2 การแก้ไขปัญหาอุปกรณ์ต่อพ่วง",
-        content: `<h1>9.3 การแก้ไขปัญหาอุปกรณ์ต่อพ่วง (Advanced Peripheral Logic)</h1>
-            <p>• <strong>I/O Ports & IRQ Conflicts :</strong> ตรวจสอบ Device Manager เพื่อดูว่ามีอุปกรณ์แย่งชิงเลข IRQ กันหรือไม่</p>
-            <p>• <strong>USB Power Management :</strong> หากพอร์ต USB ดับบ่อย ให้ปิด "Allow the computer to turn off this device to save power" ใน Device Manager</p>
-            <p>• <strong>HDMI/DP Protocol :</strong> หากภาพกระพริบ ให้ลองลด Refresh Rate เพื่อทดสอบมาตรฐานสายสัญญาณ</p>
-            <img src="images/usb.png" alt="usb" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:4px solid #ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.15);">`
+        content: `
+            <h1>9.2 การวิเคราะห์ปัญหาอินเตอร์เฟซและพอร์ตเชื่อมต่อ (Peripheral Logic)</h1>
+            <p>การวิเคราะห์ปัญหาเชื่อมต่อขัดข้องและพอร์ตสื่อสารที่เสื่อมสภาพ:</p>
+
+            <div class="callout-box">
+                <h3>1. ปัญหาการจ่ายพลังงานพอร์ตยูเอสบี (USB Power Management Issues)</h3>
+                <p>อาการภายนอกที่พบบ่อย: แฟลชไดรฟ์หรือการ์ดเชื่อมเน็ต Wi-Fi USB เกิดอาการหลุดเชื่อมต่อสลับดับไปเองถอยหลังบ่อยๆ ขณะใช้งาน</p>
+                <ul>
+                    <li><strong>สาเหตุเทคนิค:</strong> ระบบประหยัดพลังงานของ Windows (USB Selective Suspend) สั่งปิดจ่ายไฟให้พอร์ตเมื่อตรวจพบทราฟิกข้อมูลต่ำ</li>
+                    <li><strong>การแก้ไข:</strong> เข้า Device Manager คลิกขวาที่หัวข้อ <em>USB Root Hub</em> &gt; Properties &gt; เลือกแท็บ <strong>Power Management</strong> &gt; กดยกเลิกติ๊กถูก (Uncheck) เมนู <strong>"Allow the computer to turn off this device to save power"</strong> เพื่อสั่งเมนบอร์ดจ่ายไฟแรงดันคงที่ 5V เลี้ยงพอร์ตตลอดเวลา</li>
+                </ul>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. การเสื่อมสภาพของสายสัญญาณภาพความเร็วสูง (Display Connection Protocols)</h3>
+                <p>อาการ: จอภาพเกิดกระพริบ ดับเป็นเวลา 1-2 วินาทีสลับกลับมา หรือเกิดลายเส้นหยาบเมื่อปรับความละเอียดสูง</p>
+                <ul>
+                    <li><strong>สาเหตุ:</strong> การลดทอนของสัญญาณคลื่นแม่เหล็กไฟฟ้า (Signal Attenuation) ในสายสัญญาณ HDMI หรือ DisplayPort ที่ยาวเกินไป หรือใช้สายที่มาตรฐานต่ำกว่าแบนด์วิดท์ภาพ เช่น ใช้สาย HDMI 1.4 ดันส่งพิกเซลความละเอียด 4K 144Hz ช่างต้องเลือกสายที่ระบุเครื่องหมายการค้า VESA Certified หรือใช้สาย HDMI Ultra High Speed (HDMI 2.1) เกรดแท้เท่านั้น</li>
+                </ul>
+            </div>
+
+            <img src="images/usb.png" alt="usb" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+        `
     },
     {
         title: "9.3 ประเภทของไวรัสและมัลแวร์เชิงเทคนิค",
-        content: `<h1>9.4 ประเภทของไวรัสและมัลแวร์เชิงเทคนิค</h1>
-            <p>• <strong>Rootkits :</strong> มัลแวร์ที่ฝังตัวลึกระดับ Kernel หรือ BIOS/UEFI แก้ยากที่สุด</p>
-            <p>• <strong>Worms :</strong> แพร่กระจายผ่านช่องโหว่ Network (ควรปิด Port 445 ที่ไม่จำเป็น)</p>
-            <p>• <strong>Ransomware :</strong> ใช้ Asymmetric Encryption เข้ารหัสไฟล์ กู้คืนแทบไม่ได้ถ้าไม่มี Backup</p>
-            <p>• <strong>Keyloggers :</strong> บันทึกการกดคีย์บอร์ด แฝงมากับโปรแกรมไม่พึงประสงค์</p>
-            <img src="images/nod.png" alt="nod" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:4px solid #ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.15);">`
+        content: `
+            <h1>9.3 โครงสร้างการทำงานของไวรัสและมัลแวร์เชิงเทคนิค</h1>
+            <p>มัลแวร์ (Malicious Software) แต่ละประเภทมีสถาปัตยกรรมและพฤติกรรมเป้าหมายทำลายต่างกันดังนี้:</p>
+            
+            <div class="callout-box box-danger">
+                <h3>1. รูทคิตและบู้ทคิต (Rootkits &amp; Bootkits)</h3>
+                <p>มัลแวร์ขั้นสูงที่ลักลอบฝังตัวรันคำสั่งในระดับลึกมาก เช่น ระดับ Ring 0 Kernel หรือเขียนรหัสทับลงในรอยต่อระบบบูตของ UEFI BIOS (Bootkits)</p>
+                <p>มีคุณลักษณะพิเศษคือสามารถบล็อกเขียนโปรแกรมบังขวางระบบประมวลผลคำสั่ง API ทำให้โปรแกรม Antivirus บนวินโดว์มองไม่เห็นไฟล์ตัวไวรัสเลย ชาติจึงต้องบูตสแกนระดับนอกเครื่องเพื่อกำจัด</p>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. เวิร์ม หรือ หนอนอินเทอร์เน็ต (Worms)</h3>
+                <p>มัลแวร์ที่สามารถแพร่พันธุ์คัดลอกตัวเองส่งผ่านระบบเครือข่ายได้ด้วยตัวเองโดยไม่ต้องอาศัยการกดคลิกเปิดไฟล์จากผู้ใช้ มักสืบค้นและโจมตีผ่านพอร์ตช่องโหว่บริการ เช่น ช่องโหว่ SMB พอร์ต 445 (เช่น มัลแวร์เรียกค่าไถ่ WannaCry)</p>
+            </div>
+
+            <div class="callout-box">
+                <h3>3. ไวรัสเรียกค่าไถ่ (Ransomware)</h3>
+                <p>การทำงานเน้นรันระบบการเข้ารหัสกุญแจสองทาง (Asymmetric Cryptography) ล็อคไฟล์นามสกุลสำคัญบนดิสก์ทั้งหมด แล้วลบคีย์ถอดรหัสส่วนตัวไปไว้บนเซิร์ฟเวอร์มัลแวร์ ซึ่ง <strong>ไม่สามารถกู้ข้อมูลไฟล์เดิมคืนได้เลยในทางทฤษฎีคณิตศาสตร์</strong> หากไม่มีการสำรองข้อมูลไว้ก่อน</p>
+            </div>
+
+            <img src="images/nod.png" alt="nod" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+        `
     },
     {
         title: "9.4 การตรวจสอบและการสร้างระบบป้องกัน",
-        content: `<h1>9.5 การตรวจสอบและการสร้างระบบป้องกัน (Defensive Strategy)</h1>
-            <p>• <strong>Principle of Least Privilege :</strong> ใช้ User ทั่วไป (Standard User) ในการใช้งานปกติ เพื่อจำกัดขอบเขตการทำลายของมัลแวร์</p>
-            <p>• <strong>Hardening the System</strong></p>
-            <p>- เปิด UAC ในระดับสูงสุด<br>
-            - ปิด AutoPlay ของแฟลชไดรฟ์<br>
-            - Network Isolation ปิดบริการที่ไม่จำเป็น เช่น Remote Desktop</p>
+        content: `
+            <h1>9.4 การสร้างระบบป้อมปราการความมั่นคงคอมพิวเตอร์ (System Hardening)</h1>
+            <p>เพื่อปกป้องระบบปฏิบัติการไม่ให้มัลแวร์สิทธิ์ทำลายระบบ ช่างคอมพิวเตอร์ต้องบังคับใช้นโยบายสิทธิ์ความปลอดภัยดังนี้:</p>
+
+            <div class="callout-box box-success">
+                <h3>1. นโยบายผู้ใช้ทั่วไปสิทธิ์จำกัด (Principle of Least Privilege - PoLP)</h3>
+                <p>ในการใช้งานทั่วไป ช่างควรสร้างและกำหนดให้ผู้ใช้งานล็อกอินด้วยบัญชีประเภท <strong>Standard User Account</strong> เท่านั้น (ไม่ควรล็อกอินค้างด้วยสิทธิ์ Administrator ตลอดเวลา) เนื่องจากหากระบบพลาดติดมัลแวร์ ตัวโค้ดไวรัสจะทำงานได้สิทธิ์จำกัดเท่ากับผู้ใช้งานรายนั้น ส่งผลให้ไม่สามารถไปบันทึกทับไฟล์แกนระบบหลักใน Ring 0 หรือบันทึกแก้ค่าไดเรกทอรี C:\\Windows ได้</p>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. การปิดฟังก์ชันเล่นสื่ออัตโนมัติ (Disabling AutoPlay / AutoRun)</h3>
+                <p>ไวรัสกลุ่มแพร่ระบาดผ่านช่องทางแฟลชไดรฟ์มักเขียนไฟล์คำสั่ง <code>autorun.inf</code> เพื่อให้วินโดว์รันเปิดไฟล์ไวรัสทำงานอัตโนมัติทันทีที่ผู้เสียบไดรฟ์ ช่างต้องเข้าไปใน Control Panel &gt; AutoPlay &gt; <strong>ยกเลิกติ๊กถูกการเล่นมีเดียทุกช่อง</strong> เพื่อบังคับให้ผู้ใช้ต้องตรวจก่อนคลิกเปิด</p>
+            </div>
+
             <div style="display: flex; justify-content: space-between; gap: 20px; margin: 25px auto; max-width: 800px;">
-                <img src="images/user.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="images/control.png" style="width: 48%; border-radius: 20px; border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-            </div>`
+                <img src="images/user.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+                <img src="images/control.png" style="width: 48%; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4);">
+            </div>
+        `
     },
     {
         title: "9.5 โปรแกรมตรวจจับและกำจัด",
-        content: `<h1>9.6 โปรแกรมตรวจจับและกำจัด (Advanced Security Tools)</h1>
-            <p>• <strong>Windows Defender :</strong> ใช้ AI วิเคราะห์ไฟล์ใหม่ๆ เสมอ (ปิดไม่ได้)</p>
-            <p>• <strong>Offline Scanning :</strong> สแกนระดับ Rootkit ก่อนที่ Windows จะเริ่มทำงานปกติ</p>
-            <p>• <strong>Sysinternals Suite (Autoruns) :</strong> เครื่องมือระดับเทพ! ใช้ดูโปรแกรมที่แอบเปิดตัวตอนบูตเครื่อง (Registry, Tasks, Services)</p>
-            <img src="images/defender.png" alt="defend" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:4px solid #ffffff; box-shadow:0 10px 20px rgba(0,0,0,0.15);">`
+        content: `
+            <h1>9.5 การใช้เครื่องมือสแกนนอกระบบ และชุดวิเคราะห์ระบบขั้นสูง</h1>
+            <p>เมื่อมัลแวร์เข้าฝังตัวระดับลึกจนเครื่องมึนงง ช่างต้องใช้เครื่องมือระบบปฏิบัติการย่อยภายนอกเข้าจัดการ:</p>
+
+            <div class="callout-box">
+                <h3>1. การสแกนนอกระบบออฟไลน์ (Microsoft Defender Offline Scan)</h3>
+                <p>เป็นฟังก์ชันสั่งรีสตาร์ทระบบ Windows ให้บูตเข้าสู่ระบบปฏิบัติการจำลอง <strong>Windows PE ขนาดจิ๋ว</strong> เพื่อรันโปรแกรมตรวจสอบหาลายเซ็นไวรัสในหน่วยความจำไดรฟ์และชิปเก็บข้อมูลก่อนที่ระบบ Windows ตัวหลักจะบูตขึ้นมารันคำสั่ง (ทำให้ไวรัสกลุ่ม Rootkit ไม่มีโอกาสรันโค้ดพรางตาขวางระบบได้) กำจัดไวรัสในสภาวะจำศีลได้อย่างหมดจด</p>
+            </div>
+
+            <div class="callout-box">
+                <h3>2. การใช้เครื่องมือระดับวิศวกรวิเคราะห์ระบบ (Microsoft Sysinternals Suite)</h3>
+                <ul>
+                    <li><strong>Autoruns:</strong> โปรแกรมสแกนตรวจสอบจุดเริ่มทำงานรันไฟล์ทั้งหมดลึกที่สุดในวินโดว์ สแกนหาโปรแกรมที่แอบฝังตัวในคีย์รีจิสทรีลับ, ตารางงาน Schedule Tasks, ไดรเวอร์ระบบ หรือขั้วต่อเว็บเบราว์เซอร์ พร้อมแจ้งสถานะใบรับรองลายเซ็นดิจิทัล (Digital Signature) เพื่อหาไฟล์ไม่ระบุชื่อแบรนด์</li>
+                    <li><strong>Process Explorer:</strong> โปรแกรมติดตามการรันโปรเซสคล้าย Task Manager แต่แสดงโครงสร้างรากไม้ของโปรแกรมลูกข่ายที่ถูกส่งคำสั่งรันจากโปรแกรมแม่ สามารถเช็คค่าแฮชเช็คสอบรวมกับฐานข้อมูลไวรัสโลก <strong>VirusTotal</strong> ได้บนหน้าโปรแกรมเวลาจริง</li>
+                    <li><strong>Event Viewer:</strong> สารบันทึกเหตุการณ์ของ Windows ช่างควรรหัสกรองเหตุการณ์ประเภท <strong>Critical (วิกฤต)</strong> และ <strong>Error (ข้อผิดพลาด)</strong> ค้นหาประวัติ Event ID เช่น <em>Event ID 41 (Kernel-Power - เครื่องดับเนื่องจากไฟตกกะทันหัน)</em> เพื่อหาเวลาและชิ้นส่วนชำรุดเสียหาย</li>
+                </ul>
+            </div>
+
+            <img src="images/defender.png" alt="defend" style="width:100%; max-width:500px; display:block; margin:25px auto; border-radius:25px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+        `
     }
 ];
