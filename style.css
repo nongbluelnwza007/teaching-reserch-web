@@ -52,6 +52,7 @@ html, body {
     flex-direction: row;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -473,6 +474,7 @@ html, body {
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -488,7 +490,7 @@ html, body {
     .mobile-menu-btn { display: block !important; }
 
     body { font-size: 16px !important; }
-    .content-inner { margin: 12px !important; padding: 20px !important; line-height: 1.7 !important; }
+    .content-inner { margin: 12px !important; padding: 65px 20px 20px 20px !important; line-height: 1.7 !important; }
 
     #sidebar {
         position: fixed !important;
@@ -496,6 +498,7 @@ html, body {
         top: 0 !important;
         width: 280px !important;
         height: 100vh !important;
+        height: 100dvh !important;
         transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 10000 !important;
         display: flex !important;

@@ -24,7 +24,11 @@ window.onload = () => {
 function renderPage(index) {
     const idx = parseInt(index);
     if (window.allPages[idx]) {
-        document.getElementById('page-content').innerHTML = window.allPages[idx].content;
+        const pageContent = document.getElementById('page-content');
+        if (pageContent) {
+            pageContent.innerHTML = window.allPages[idx].content;
+            pageContent.scrollTop = 0; // Reset scroll position to top
+        }
         document.getElementById('pageCounter').innerText = `หน้า ${idx + 1} / ${window.allPages.length}`;
         window.currentIndex = idx;
     }
@@ -53,8 +57,17 @@ function goToSlide(index, element = null) {
     if (targetItem) {
         targetItem.classList.add('active-menu');
         
-        // เลื่อน Sidebar ให้เห็นเมนูที่เลือก
-        targetItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // เลื่อน Sidebar ให้เห็นเมนูที่เลือกอย่างปลอดภัย (ป้องกันหน้าจอบิดเบี้ยวขยับบนมือถือ)
+        const menuScroll = document.querySelector('.menu-scroll');
+        if (menuScroll) {
+            const containerTop = menuScroll.getBoundingClientRect().top;
+            const itemTop = targetItem.getBoundingClientRect().top;
+            const relativeTop = itemTop - containerTop + menuScroll.scrollTop;
+            menuScroll.scrollTo({
+                top: relativeTop - menuScroll.clientHeight / 2 + targetItem.clientHeight / 2,
+                behavior: 'smooth'
+            });
+        }
         
         // กางเฉพาะกลุ่มที่เลือก และปิดกลุ่มอื่น
         const activeGroup = targetItem.closest('.menu-group');
