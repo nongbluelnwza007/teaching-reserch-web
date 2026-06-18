@@ -92,6 +92,14 @@
             background: #f1f5f9;
             border-color: #94a3b8;
         }
+
+        /* 📍 ส่วนที่เพิ่มมาเพื่อปลดล็อกมือถือ ห้ามลบเด็ดขาด */
+        @media only screen and (max-width: 768px) {
+            body { overflow-x: hidden !important; }
+            .app-container { flex-direction: column !important; height: auto !important; }
+            #sidebar { width: 100% !important; height: auto !important; }
+            .menu-scroll { max-height: 400px !important; overflow-y: auto !important; }
+        }
     </style>
 </head>
 <body>
