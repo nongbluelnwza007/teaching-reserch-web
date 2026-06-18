@@ -23,86 +23,54 @@
         if (!sessionStorage.getItem('isLoggedIn')) { window.location.href = 'login.html'; }
     </script>
     <style>
-        /* 📍 อัปเกรดความเสถียร จัดกึ่งกลาง และดันขึ้นเลเยอร์สูงสุด (Z-Index) กันโดนบัง */
-        .user-profile {
-            display: flex;
-            flex-direction: column; 
-            align-items: center;    
-            justify-content: center;
-            text-align: center;
-            padding: 15px 10px;
-            border-top: 1px solid #e2e8f0;
-            background: #1e293b;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-            z-index: 999; /* 🛡️ ล็อกระดับเลเยอร์ให้อยู่บนสุด ป้องกันการโดนอิลิเมนต์อื่นเบียดทับ */
-        }
-
-        .user-avatar {
-            width: 90px;            
-            height: 90px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 10px;    
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-info {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .user-name {
-            font-size: 16px;        
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-            word-break: break-word;
-            line-height: 1.4;
-        }
-
-        .profile-actions {
-            display: flex; 
-            gap: 8px; 
-            margin-top: 2px;
-            justify-content: center;
-            width: 100%;
-        }
-
-        /* 📍 ปรับสไตล์แท็กอินเตอร์เฟซให้รองรับทั้งปุ่มกด และแท็ก Link ครบวงจร */
-        .logout-btn, .profile-link-nav {
-            font-size: 13px;        
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-            background: #fff;
-            border: 1px solid #cbd5e1;
-            color: #334155;
-            text-decoration: none; /* ลบเส้นใต้ของแท็ก <a> */
-            display: inline-block;
-        }
-        
-        .logout-btn:hover, .profile-link-nav:hover {
-            background: #f1f5f9;
-            border-color: #94a3b8;
-        }
-
-        /* 📍 ส่วนที่เพิ่มมาเพื่อปลดล็อกมือถือ ห้ามลบเด็ดขาด */
+        .user-profile { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px 10px; border-top: 1px solid #e2e8f0; background: #1e293b; width: 100%; box-sizing: border-box; position: relative; z-index: 999; }
+        .user-avatar { width: 90px; height: 90px; border-radius: 50%; background-size: cover; background-position: center; margin-bottom: 10px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .user-info { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .user-name { font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 8px; word-break: break-word; line-height: 1.4; }
+        .profile-actions { display: flex; gap: 8px; margin-top: 2px; justify-content: center; width: 100%; }
+        .logout-btn, .profile-link-nav { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; background: #fff; border: 1px solid #cbd5e1; color: #334155; text-decoration: none; display: inline-block; }
+        .logout-btn:hover, .profile-link-nav:hover { background: #f1f5f9; border-color: #94a3b8; }
+        /* Mobile Responsive Fix */
         @media only screen and (max-width: 768px) {
-            body { overflow-x: hidden !important; }
             .app-container { flex-direction: column !important; height: auto !important; }
             #sidebar { width: 100% !important; height: auto !important; }
             .menu-scroll { max-height: 400px !important; overflow-y: auto !important; }
+            #main-content { padding: 10px !important; }
         }
     </style>
+<div id="menuBackdrop" class="menu-backdrop"></div>
+
+<script>
+function toggleMobileMenu(){
+
+    const sidebar =
+        document.getElementById('sidebar');
+
+    const backdrop =
+        document.getElementById('menuBackdrop');
+
+    sidebar.classList.toggle('show');
+    backdrop.classList.toggle('show');
+}
+
+document
+.getElementById('menuBackdrop')
+.addEventListener('click',()=>{
+
+    document
+    .getElementById('sidebar')
+    .classList.remove('show');
+
+    document
+    .getElementById('menuBackdrop')
+    .classList.remove('show');
+
+});
+</script>
+
 </head>
 <body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()"> ☰ </button>    
     <div class="app-container">
         <nav id="sidebar">
             <div class="sidebar-header"><h2 class="course-title">KTCM Computer Maintenance</h2></div>
