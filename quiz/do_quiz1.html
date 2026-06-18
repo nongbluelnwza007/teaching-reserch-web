@@ -160,7 +160,7 @@
                         document.getElementById('auth-icon').innerText = "❌";
                         document.getElementById('auth-icon').style.color = "#ef4444";
                         document.getElementById('auth-title').innerText = "สิทธิ์เข้าทำข้อสอบถูกบล็อก";
-                        document.getElementById('auth-text').innerText = "นายยังไม่ได้ทำแบบทดสอบก่อนเรียน (Pre-Test) ของหน่วยนี้! กรุณากลับไปทำก่อนเรียนให้เสร็จก่อนไอสัส!";
+                        document.getElementById('auth-text').innerText = "นายยังไม่ได้ทำแบบทดสอบก่อนเรียน (Pre-Test) ของหน่วยนี้! กรุณากลับไปทำก่อนเรียนให้เสร็จก่อน !";
                         document.getElementById('auth-modal').style.display = 'flex';
                         return; 
                     }
@@ -253,7 +253,7 @@
             title.innerText = "ต้องการยกเลิกใช่ไหม?";
             text.innerText = "หากกดยืนยันการยกเลิกการทำข้อสอบในครั้งนี้ คะแนนปัจจุบันของนายจะไม่ถูกบันทึกลงในระบบ!";
 
-            // ยัดปุ่มคู่เข้าไปในกล่องได้สมบูรณ์แบบไม่ติด Null แล้วสัส
+        
             btnGroup.innerHTML = `
                 <button class="modal-btn-confirm" onclick="window.location.href='../quiz.html'">ยืนยันยกเลิก</button>
                 <button class="modal-btn-cancel" onclick="closeCancelModal()">ทำข้อสอบต่อ</button>
