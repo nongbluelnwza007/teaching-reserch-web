@@ -38,34 +38,37 @@
             #main-content { padding: 10px !important; }
         }
     </style>
+
 <div id="menuBackdrop" class="menu-backdrop"></div>
 
 <script>
+
 function toggleMobileMenu(){
 
-    const sidebar =
-        document.getElementById('sidebar');
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("show");
 
-    const backdrop =
-        document.getElementById('menuBackdrop');
-
-    sidebar.classList.toggle('show');
-    backdrop.classList.toggle('show');
+    document
+        .getElementById("menuBackdrop")
+        .classList
+        .toggle("show");
 }
 
 document
-.getElementById('menuBackdrop')
-.addEventListener('click',()=>{
+.getElementById("menuBackdrop")
+.addEventListener("click",function(){
 
     document
-    .getElementById('sidebar')
-    .classList.remove('show');
+        .getElementById("sidebar")
+        .classList
+        .remove("show");
 
-    document
-    .getElementById('menuBackdrop')
-    .classList.remove('show');
+    this.classList.remove("show");
 
 });
+
 </script>
 
 </head>
