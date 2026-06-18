@@ -66,6 +66,14 @@ function goToSlide(index, element = null) {
             }
         });
     }
+
+    // Auto-close sidebar on mobile after selecting a slide
+    if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById("sidebar");
+        const backdrop = document.getElementById("menuBackdrop");
+        if (sidebar) sidebar.classList.remove("show");
+        if (backdrop) backdrop.classList.remove("show");
+    }
 }
 
 function changePage(step) {

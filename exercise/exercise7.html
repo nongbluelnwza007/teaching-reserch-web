@@ -31,41 +31,39 @@
         .modal-btn-cancel { flex: 1; padding: 12px; background: #64748b; border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 16px; }
         .modal-btn-single { width: 100%; padding: 12px; background: #10b981; border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 16px; }
     
-    /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
-@media only screen and (max-width: 768px) {
-    /* 1. ขยายกล่องหลักให้เต็มจอ */
-    .contact-container, .dashboard-container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
-    .instructor-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    .instructor-main {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
-    .contact-title { font-size: 22px; }
-    .stat-value { font-size: 20px; }
-}
-
-/* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
-@media only screen and (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr; /* เรียงแถวเดียว */
-    }
-}
+            /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
+        @media only screen and (max-width: 768px) {
+            .game-container {
+                width: 95% !important;
+                padding: 20px 15px !important;
+                margin: 10px auto !important;
+                box-sizing: border-box !important;
+            }
+            .card-grid, .drop-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            .item-pool {
+                padding: 10px !important;
+                gap: 8px !important;
+            }
+            .drag-item {
+                font-size: 14px !important;
+                padding: 8px 12px !important;
+            }
+            .drop-zone {
+                min-height: 120px !important;
+                padding: 12px !important;
+            }
+            .drop-title {
+                font-size: 16px !important;
+            }
+            .memory-card {
+                height: 80px !important;
+                font-size: 13px !important;
+                padding: 5px !important;
+            }
+        }
     </style>
 </head>
 <body>

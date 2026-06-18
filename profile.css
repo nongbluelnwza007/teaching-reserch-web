@@ -1,46 +1,339 @@
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
+/*
+ * KTCM Computer Maintenance - Profile Page Stylesheet
+ * Version: 3.0.0 (Space-Tech Dark Theme)
+ * Author: Antigravity AI
+ */
 
-* { font-family: 'Sarabun', sans-serif !important; box-sizing: border-box; }
-body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;700&display=swap');
 
-/* 1. ปรับ Card ให้เล็กลงหน่อย ให้พอดีจอ */
+* { 
+    font-family: 'Outfit', 'Sarabun', sans-serif !important; 
+    box-sizing: border-box; 
+}
+
+body { 
+    background: #070913; 
+    background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0; 
+    padding: 20px; 
+    color: #f1f5f9;
+}
+
+/* 1. Glassmorphic main container card */
 .card { 
-    background: white; padding: 30px; border-radius: 30px; 
-    width: 100%; max-width: 1000px; display: flex; gap: 30px; 
-    box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
-    height: 85vh; /* ใช้พื้นที่ให้คุ้ม */
+    background: rgba(19, 27, 46, 0.7); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 35px; 
+    border-radius: 24px; 
+    width: 100%; 
+    max-width: 1000px; 
+    display: flex; 
+    gap: 35px; 
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); 
+    height: 85vh; 
 }
 
-/* 2. ฝั่งซ้าย: บังคับให้ Scroll ได้ถ้าล้น */
+/* 2. Left side editing column */
 .left-side { 
-    width: 280px; text-align: center; flex-shrink: 0; 
-    display: flex; flex-direction: column; overflow-y: auto; padding-right: 10px;
+    width: 300px; 
+    text-align: center; 
+    flex-shrink: 0; 
+    display: flex; 
+    flex-direction: column; 
+    overflow-y: auto; 
+    padding-right: 12px;
 }
 
-/* 3. ย่อรูปให้เล็กลงอีกนิด มีที่หายใจ */
-.img-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px auto; }
-.img-wrapper { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 4px solid #f0f2f5; }
-#preview { width: 100%; height: 100%; object-fit: cover; }
+.left-side::-webkit-scrollbar {
+    width: 4px;
+}
+.left-side::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+/* Header typography */
+h2 { 
+    font-size: 1.35rem; 
+    font-weight: 700; 
+    margin: 20px 0 12px 0; 
+    color: #a5b4fc; 
+    text-align: left;
+}
+.left-side h2 {
+    text-align: center;
+}
+
+/* Avatar edit layout */
+.img-container { 
+    position: relative; 
+    width: 130px; 
+    height: 130px; 
+    margin: 0 auto 20px auto; 
+}
+
+.img-wrapper { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 3px solid rgba(99, 102, 241, 0.4); 
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+    transition: all 0.3s ease;
+}
+
+.img-wrapper:hover {
+    transform: scale(1.03);
+    border-color: #8b5cf6;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.45);
+}
+
+#preview { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
 .upload-btn {
-    position: absolute; bottom: 0; right: 0; background: #000; color: #fff; 
-    width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; 
-    justify-content: center; cursor: pointer; border: 3px solid white; z-index: 99;
+    position: absolute; 
+    bottom: 4px; 
+    right: 4px; 
+    background: #6366f1; 
+    color: #fff; 
+    width: 36px; 
+    height: 36px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    border: 2px solid #131b2e; 
+    z-index: 99;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
 }
 
-/* 4. ปรับ Input ให้บางลง ไม่กินที่ */
+.upload-btn:hover {
+    transform: scale(1.1);
+    background: #8b5cf6;
+}
+
+/* Inputs styling */
 input[type="text"], input[type="password"] { 
-    width: 100%; padding: 10px 12px; margin-bottom: 8px; 
-    border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px;
+    width: 100%; 
+    padding: 12px 16px; 
+    margin-bottom: 12px; 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 12px; 
+    font-size: 15px;
+    background: rgba(11, 15, 25, 0.6);
+    color: #f1f5f9;
+    outline: none;
+    transition: all 0.25s ease;
 }
-h2 { font-size: 18px; margin: 15px 0 10px 0; } /* ลดขนาดหัวข้อ */
-.btn-save { width: 100%; padding: 10px; border: none; border-radius: 12px; background: #000; color: #fff; cursor: pointer; font-weight: 600; margin-bottom: 8px; }
-.btn-back { width: 100%; padding: 10px; border: none; border-radius: 12px; background: #64748b; color: white; cursor: pointer; }
 
-/* 5. ฝั่งขวา: รายการเรียน */
-.right-side { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-#progressList { flex: 1; overflow-y: auto; padding-right: 10px; }
-.progress-item { margin-bottom: 15px; background: #f8f9fa; padding: 15px; border-radius: 15px; }
-.row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #64748b; }
-.bar-container { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-.bar { height: 100%; border-radius: 4px; }
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+    background: rgba(11, 15, 25, 0.8);
+}
 
+/* Buttons styling */
+.btn-save { 
+    width: 100%; 
+    padding: 12px; 
+    border: none; 
+    border-radius: 12px; 
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); 
+    color: #fff; 
+    cursor: pointer; 
+    font-weight: 700; 
+    font-size: 15px;
+    margin-bottom: 10px; 
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.45);
+    filter: brightness(1.05);
+}
+
+.btn-back { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid rgba(255, 255, 255, 0.12); 
+    border-radius: 12px; 
+    background: rgba(255, 255, 255, 0.05); 
+    color: #cbd5e1; 
+    cursor: pointer; 
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 15px;
+    transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+    background: #fff;
+    color: #0b0f19;
+    transform: translateY(-2px);
+}
+
+/* 3. Right side progress column */
+.right-side { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+}
+
+#progressList { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding-right: 12px; 
+}
+
+#progressList::-webkit-scrollbar {
+    width: 6px;
+}
+#progressList::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.progress-item { 
+    margin-bottom: 18px; 
+    background: rgba(255, 255, 255, 0.02); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 18px; 
+    border-radius: 16px; 
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.progress-item:hover { 
+    border-color: rgba(99, 102, 241, 0.3); 
+    background: rgba(99, 102, 241, 0.04);
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+}
+
+.row { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 8px; 
+    font-size: 0.95rem; 
+    font-weight: 600; 
+    color: #cbd5e1; 
+}
+
+.bar-container { 
+    height: 8px; 
+    background: rgba(255, 255, 255, 0.08); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    margin-bottom: 12px; 
+}
+
+.bar { 
+    height: 100%; 
+    border-radius: 4px; 
+    box-shadow: 0 0 8px currentColor;
+    transition: width 0.5s ease;
+}
+
+.pre-bar { background: #f59e0b; color: rgba(245, 158, 11, 0.4); } 
+.ex-bar { background: #3b82f6; color: rgba(59, 130, 246, 0.4); }   
+.quiz-bar { background: #10b981; color: rgba(16, 185, 129, 0.4); } 
+
+/* 4. Modal Alert Styles */
+.modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.65); 
+    backdrop-filter: blur(4px);
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 9999; 
+    pointer-events: none; 
+}
+.modal-overlay.active { 
+    display: flex; 
+    pointer-events: auto; 
+}
+
+.modal-content { 
+    background: #131b2e; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 35px; 
+    border-radius: 24px; 
+    text-align: center; 
+    width: 440px; 
+    transform: scale(0.75); 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); 
+    color: #f1f5f9;
+}
+.modal-content.show { 
+    transform: scale(1); 
+}
+.icon { 
+    font-size: 65px; 
+    margin-bottom: 12px; 
+    display: block; 
+}
+
+/* ==========================================================================
+   5. MOBILE RESPONSIVE
+   ========================================================================== */
+@media only screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .card { 
+        flex-direction: column !important; 
+        padding: 20px !important; 
+        width: 95% !important; 
+        margin: 10px auto !important;
+        height: auto !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+    .left-side { 
+        width: 100% !important; 
+        flex: none !important; 
+        height: auto !important;
+        overflow: visible !important;
+        padding-right: 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        padding-bottom: 25px !important;
+    }
+    .right-side {
+        width: 100% !important; 
+        flex: none !important; 
+        height: auto !important;
+        overflow: visible !important;
+        margin-top: 10px !important;
+    }
+    #progressList {
+        height: auto !important;
+        overflow-y: visible !important;
+        padding-right: 0 !important;
+    }
+    .modal-content { 
+        width: 90% !important; 
+        padding: 25px 20px !important; 
+    }
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,77 +22,198 @@
         });
     </script>
     <style>
-        body { 
-            margin: 0; 
-            font-family: 'Sarabun', sans-serif; 
-            background: #0f172a; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            background-image: radial-gradient(#1e293b 1px, transparent 1px); 
-            background-size: 30px 30px; 
-            color: #0f172a; 
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', 'Sarabun', sans-serif;
+            background: #070913;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #f1f5f9;
         }
-        
-        .quiz-container { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); width: 650px; border: 4px solid #3b82f6; transition: 0.3s; }
-        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
-        .quiz-title { margin: 0; font-size: 26px; font-weight: 700; color: #0f172a; }
-        
-        .selection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
-        .select-btn { padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; background: white; font-size: 18px; font-weight: bold; font-family: inherit; cursor: pointer; text-align: left; transition: 0.2s; }
-        .select-btn:hover { border-color: #3b82f6; background: #f0f9ff; }
-        
-        .quiz-footer { display: flex; justify-content: space-between; margin-top: 20px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 10px; font-weight: 700; font-family: inherit; cursor: pointer; font-size: 18px; transition: 0.3s; }
-        .btn-back { background: #64748b; color: white; }
-        .btn-back:hover { background: #475569; }
+
+        .quiz-container {
+            background: rgba(19, 27, 46, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            width: 750px;
+            transition: 0.3s;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 15px;
+        }
+
+        .quiz-title {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .select-btn {
+            padding: 18px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #cbd5e1;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .select-btn:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.08);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        }
+
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+        }
+
+        .btn-back:hover {
+            background: #fff;
+            color: #0b0f19;
+            transform: translateY(-2px);
+        }
 
         /* Modal สไตล์แจ้งเตือนสิทธิ์แบบ Pop-up */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 9999; }
-        .modal-content { background: white; padding: 40px; border-radius: 30px; text-align: center; width: 340px; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
-        .modal-content.show { transform: scale(1); }
-        .modal-icon { font-size: 70px; margin-bottom: 15px; display: block; }
-        .modal-btn { width: 100%; padding: 12px; background: #0f172a; border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 16px; font-family: inherit; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .modal-btn:hover { background: #3b82f6; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: #131b2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            width: 380px;
+            transform: scale(0.75);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            color: #f1f5f9;
+        }
+
+        .modal-content.show {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+        }
 
         /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
-@media only screen and (max-width: 768px) {
-    /* 1. ขยายกล่องหลักให้เต็มจอ */
-    .contact-container, .dashboard-container {
-        width: 95%;
-        padding: 20px;
-    }
+        @media only screen and (max-width: 768px) {
+            .quiz-container {
+                width: 95% !important;
+                padding: 20px !important;
+                margin: 10px auto !important;
+            }
 
-    /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
-    .instructor-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    .instructor-main {
-        flex-direction: column;
-        gap: 10px;
-    }
+            .selection-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
 
-    /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+            .select-btn {
+                padding: 12px !important;
+                font-size: 16px !important;
+            }
 
-    /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
-    .contact-title { font-size: 22px; }
-    .stat-value { font-size: 20px; }
-}
+            .quiz-title {
+                font-size: 20px !important;
+            }
 
-/* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
-@media only screen and (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr; /* เรียงแถวเดียว */
-    }
-}
+            .modal-content {
+                width: 90% !important;
+                padding: 25px 20px !important;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="quiz-container" id="main-box">
@@ -100,7 +222,8 @@
         </div>
 
         <div id="step-unit">
-            <p style="color:#64748b; font-weight: bold; margin-bottom: 15px; font-size: 18px;">กรุณาเลือกหน่วยการเรียนรู้ที่ต้องการเข้าเล่นเกม</p>
+            <p style="color:#64748b; font-weight: bold; margin-bottom: 15px; font-size: 18px;">
+                กรุณาเลือกหน่วยการเรียนรู้ที่ต้องการเข้าเล่นเกม</p>
             <div class="selection-grid" id="unit-grid"></div>
         </div>
 
@@ -125,18 +248,18 @@
         const firebaseConfig = { apiKey: "AIzaSyANpBI1AVwKW6X2I9EPxmflU81RpumrXwo", authDomain: "teach-af247.firebaseapp.com", projectId: "teach-af247", storageBucket: "teach-af247.firebasestorage.app", messagingSenderId: "540555116590", appId: "1:540555116590:web:23e79da0c82e8c865edfbf" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        
+
         const loginUser = localStorage.getItem('userName');
         if (!loginUser) { window.location.href = 'login.html'; }
 
         const unitNames = [
-            "", "หน่วยที่ 1 ความรู้พื้นฐาน", "หน่วยที่ 2 อุปกรณ์ภายใน", "หน่วยที่ 3 การเลือกอุปกรณ์", 
-            "หน่วยที่ 4 กระบวนการประกอบ", "หน่วยที่ 5 การกำหนดค่า BIOS และ UEFI", "หน่วยที่ 6 การติดตั้งระบบปฏิบัติการ", 
-            "หน่วยที่ 7 การติดตั้งซอฟต์แวร์", "หน่วยที่ 8 การทดสอบและวิเคราะห์ระบบ", "หน่วยที่ 9 การแก้ไขปัญหาคอมพิวเตอร์", 
+            "", "หน่วยที่ 1 ความรู้พื้นฐาน", "หน่วยที่ 2 อุปกรณ์ภายใน", "หน่วยที่ 3 การเลือกอุปกรณ์",
+            "หน่วยที่ 4 กระบวนการประกอบ", "หน่วยที่ 5 การกำหนดค่า BIOS และ UEFI", "หน่วยที่ 6 การติดตั้งระบบปฏิบัติการ",
+            "หน่วยที่ 7 การติดตั้งซอฟต์แวร์", "หน่วยที่ 8 การทดสอบและวิเคราะห์ระบบ", "หน่วยที่ 9 การแก้ไขปัญหาคอมพิวเตอร์",
             "หน่วยที่ 10 การบำรุงรักษาและการปรับปรุงระบบ"
         ];
 
-        let cachedScores = null; 
+        let cachedScores = null;
 
         // ดึงคะแนนรอไว้ล่วงหน้า
         async function loadUserScores() {
@@ -155,7 +278,7 @@
 
         // วาดปุ่มเมนูเกม 1-10
         const unitGrid = document.getElementById('unit-grid');
-        for(let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             const btn = document.createElement('button');
             btn.className = 'select-btn';
             btn.innerText = `🎮 ${unitNames[i]}`;
@@ -185,7 +308,7 @@
         function openExModal(isSuccess, title, message) {
             const modal = document.getElementById("exercise-modal");
             const modalBox = document.getElementById("modalBox");
-            
+
             document.getElementById("modalIcon").innerText = isSuccess ? "✅" : "❌";
             document.getElementById("modalIcon").style.color = isSuccess ? "#10b981" : "#ef4444";
             document.getElementById("modalTitle").innerText = title;
@@ -205,4 +328,5 @@
         loadUserScores();
     </script>
 </body>
+
 </html>

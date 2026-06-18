@@ -6,57 +6,131 @@
     <title>KTCM Maintenance Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Sarabun', sans-serif; background: #0f172a; display: flex; justify-content: center; align-items: center; height: 100vh; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; }
-        .login-card { background: white; padding: 50px; border-radius: 25px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); width: 350px; text-align: center; border: 4px solid #0ea5e9; }
-        .icon { font-size: 40px; margin-bottom: 10px; }
-        h2 { color: #0f172a; margin-bottom: 5px; font-weight: 700; }
-        p { color: #64748b; margin-bottom: 25px; }
-        input { width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #e2e8f0; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus { border-color: #0ea5e9; }
-        button { width: 100%; padding: 15px; background: #0f172a; border: none; border-radius: 12px; color: white; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #0ea5e9; transform: translateY(-2px); }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;700&display=swap');
+        
+        body { 
+            margin: 0; 
+            font-family: 'Outfit', 'Sarabun', sans-serif; 
+            background: #070913; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px); 
+            background-size: 24px 24px; 
+            color: #f1f5f9;
+        }
+        
+        .login-card { 
+            background: rgba(19, 27, 46, 0.75); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 50px 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            width: 380px; 
+            text-align: center; 
+            transition: all 0.3s ease; 
+        }
+        .icon { font-size: 45px; margin-bottom: 12px; }
+        h2 { 
+            color: #fff; 
+            margin-bottom: 6px; 
+            font-weight: 800; 
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p { color: #94a3b8; margin-bottom: 30px; font-size: 15px; }
+        
+        input { 
+            width: 100%; 
+            padding: 14px 18px; 
+            margin-bottom: 15px; 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            outline: none; 
+            background: rgba(11, 15, 25, 0.6);
+            color: #f1f5f9;
+            transition: all 0.25s ease; 
+        }
+        input:focus { 
+            border-color: #6366f1; 
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
+            background: rgba(11, 15, 25, 0.8);
+        }
+        
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); 
+            border: none; 
+            border-radius: 12px; 
+            color: white; 
+            font-weight: 700; 
+            cursor: pointer; 
+            font-size: 16px;
+            transition: all 0.25s ease; 
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+            filter: brightness(1.05);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
 
         /* Modal สไตล์เด้งกลางจอ */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 9999; }
-        .modal-content { background: white; padding: 40px; border-radius: 30px; text-align: center; width: 280px; transform: scale(0.7); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 25px rgba(0,0,0,0.2); }
+        .modal-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.65); 
+            backdrop-filter: blur(4px);
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 9999; 
+        }
+        .modal-content { 
+            background: #131b2e; 
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px; 
+            border-radius: 24px; 
+            text-align: center; 
+            width: 320px; 
+            transform: scale(0.75); 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); 
+            color: #f1f5f9;
+        }
         .modal-content.show { transform: scale(1); }
         .modal-icon { font-size: 70px; margin-bottom: 15px; display: block; }
 
         /* สำหรับหน้าจอมือถือที่มีความกว้างไม่เกิน 768px */
-@media only screen and (max-width: 768px) {
-    /* 1. ขยายกล่องหลักให้เต็มจอ */
-    .contact-container, .dashboard-container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    /* 2. จัดการการ์ดอาจารย์ให้เรียงแนวตั้ง */
-    .instructor-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    .instructor-main {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* 3. ปรับ Stats Grid ใน Dashboard จาก 4 คอลัมน์ เป็น 2 คอลัมน์ */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* 4. ปรับขนาดฟอนต์ให้เล็กลงหน่อยในมือถือ */
-    .contact-title { font-size: 22px; }
-    .stat-value { font-size: 20px; }
-}
-
-/* สำหรับมือถือจอเล็กมาก (แนวตั้ง) */
-@media only screen and (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr; /* เรียงแถวเดียว */
-    }
-}
+        @media only screen and (max-width: 768px) {
+            .login-card {
+                width: 90% !important;
+                padding: 30px 20px !important;
+            }
+            input, button {
+                padding: 12px !important;
+                font-size: 15px !important;
+            }
+            .modal-content {
+                width: 85% !important;
+                padding: 25px 20px !important;
+            }
+        }
     </style>
 </head>
 <body>
